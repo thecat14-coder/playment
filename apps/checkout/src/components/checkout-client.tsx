@@ -36,7 +36,6 @@ export function CheckoutClient({ data }: { data: CheckoutData }) {
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-        {/* Header */}
         <div className="px-6 pt-6 pb-4 border-b border-gray-100">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -54,20 +53,17 @@ export function CheckoutClient({ data }: { data: CheckoutData }) {
           </div>
         </div>
 
-        {/* Amount */}
         <div className="px-6 py-5 text-center">
           <p className="text-sm text-gray-500 mb-1">Amount to pay</p>
           <p className="text-4xl font-bold text-gray-900">{amountFormatted}</p>
           <p className="text-xs text-gray-400 mt-1">Order: {data.order_id}</p>
         </div>
 
-        {/* QR + UPI */}
         <div className="px-6 pb-6 space-y-5">
           <QrDisplay qrUrl={data.qr_url} merchantName={data.merchant?.name ?? 'Merchant'} />
           <UpiButtons upiIntent={data.upi_intent} upiId={data.merchant?.upi_id ?? ''} />
         </div>
 
-        {/* Waiting indicator */}
         <div className="px-6 py-4 bg-gray-50 border-t border-gray-100">
           <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
             <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
