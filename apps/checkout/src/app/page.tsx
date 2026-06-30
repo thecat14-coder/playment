@@ -1,21 +1,27 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { usePathname } from 'next/navigation';
 import { fetchCheckoutData, type CheckoutData } from '@/lib/api';
 import { CheckoutClient } from '@/components/checkout-client';
 import NotFound from './not-found';
 
-export default function CheckoutPage() {
-  const pathname = usePathname();
-  const paymentId = pathname.replace(/^\//, '').split('/').filter(Boolean)[0] ?? '';
+function readPaymentIdFromUrl(): string {
+  if (typeof window === 'undefined') return '';
+  return window.location.pathname.replace(/^\//, '').split('/').filter(Boolean)[0] ?? '';
+}
 
+export default function CheckoutPage() {
+  const [paymentId, setPaymentId] = useState('');
   const [data, setData] = useState<CheckoutData | null>(null);
   const [notFound, setNotFound] = useState(false);
-  const [loading, setLoading] = useState(Boolean(paymentId));
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!paymentId) {
+    const id = readPaymentIdFromUrl();
+    setPaymentId(id);
+
+    if (!id) {
       setLoading(false);
       setNotFound(true);
       return;
@@ -24,13 +30,17 @@ export default function CheckoutPage() {
     let cancelled = false;
     setLoading(true);
     setNotFound(false);
+    setLoadError(null);
 
-    fetchCheckoutData(paymentId)
+    fetchCheckoutData(id)
       .then((checkout) => {
         if (!cancelled) setData(checkout);
       })
-      .catch(() => {
-        if (!cancelled) setNotFound(true);
+      .catch((err: Error) => {
+        if (!cancelled) {
+          setNotFound(true);
+          setLoadError(err.message);
+        }
       })
       .finally(() => {
         if (!cancelled) setLoading(false);
@@ -39,9 +49,18 @@ export default function CheckoutPage() {
     return () => {
       cancelled = true;
     };
-  }, [paymentId]);
+  }, []);
 
-  if (!paymentId || notFound) return <NotFound />;
+  if (!paymentId || notFound) {
+    return (
+      <>
+        <NotFound />
+        {loadError && (
+          <p className="text-center text-xs text-gray-400 px-4 pb-8">{loadError}</p>
+        )}
+      </>
+    );
+  }
 
   if (loading || !data) {
     return (

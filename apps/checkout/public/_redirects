@@ -1,2 +1,3 @@
-# Cloudflare Pages — serve the app shell for any payment link path (e.g. /pay_abc123)
-/*    /index.html   200
+# Cloudflare Pages — SPA fallback for payment link paths (e.g. /01ARZ3NDEK...)
+/_next/*  /_next/:splat  200
+/*        /index.html     200

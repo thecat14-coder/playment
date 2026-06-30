@@ -3,6 +3,7 @@ import cors from '@fastify/cors';
 import helmet from '@fastify/helmet';
 import websocket from '@fastify/websocket';
 import { getEnv } from './config/env.js';
+import { buildCorsOrigin } from './config/cors.js';
 import { createContainer } from './container.js';
 import { createJwtMiddleware } from './middleware/auth.middleware.js';
 import { createApiKeyMiddleware } from './middleware/api-key.middleware.js';
@@ -42,9 +43,16 @@ async function main() {
   const container = createContainer(env);
 
   await app.register(cors, {
-    origin: [env.DASHBOARD_URL, env.CHECKOUT_URL, env.ADMIN_URL],
+    origin: buildCorsOrigin(env),
     credentials: true,
   });
+
+  if (env.NODE_ENV === 'production' && env.CHECKOUT_URL.includes('localhost')) {
+    app.log.warn(
+      'CHECKOUT_URL points to localhost — payment links will not work for customers. ' +
+        'Set CHECKOUT_URL=https://playment.pages.dev on Railway.',
+    );
+  }
 
   await app.register(helmet);
   await app.register(websocket);

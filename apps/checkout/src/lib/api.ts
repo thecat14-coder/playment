@@ -20,8 +20,11 @@ export interface CheckoutData {
 export async function fetchCheckoutData(paymentId: string): Promise<CheckoutData> {
   const res = await fetch(`${BACKEND_URL}/v1/checkout/${paymentId}`, {
     cache: 'no-store',
+    mode: 'cors',
   });
-  if (!res.ok) throw new Error('Payment not found');
+  if (!res.ok) {
+    throw new Error(`Payment not found (${res.status})`);
+  }
   const json = await res.json();
   return json.data;
 }

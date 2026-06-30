@@ -15,5 +15,4 @@ watchPatterns = [
 
 [deploy]
 startCommand = "pnpm --filter @gateway/backend start"
-preDeployCommand = ["pnpm --filter @gateway/backend db:push"]
 restartPolicyType = "ON_FAILURE"
