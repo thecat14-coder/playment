@@ -11,7 +11,10 @@
     },
     "build": {
       "inputs": [{ "step": "install" }],
-      "commands": ["pnpm --filter @gateway/backend build"]
+      "commands": [
+        "pnpm --filter @gateway/shared build",
+        "pnpm --filter @gateway/backend build"
+      ]
     }
   },
   "deploy": {

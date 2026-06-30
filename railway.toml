@@ -3,7 +3,7 @@
 
 [build]
 builder = "RAILPACK"
-buildCommand = "pnpm --filter @gateway/backend build"
+buildCommand = "pnpm --filter @gateway/shared build && pnpm --filter @gateway/backend build"
 watchPatterns = [
   "apps/backend/**",
   "packages/shared/**",

@@ -8,6 +8,7 @@ export function createDatabase(env: Env) {
     max: 20,
     idle_timeout: 20,
     connect_timeout: 10,
+    ssl: env.NODE_ENV === 'production' ? 'require' : false,
   });
 
   const db = drizzle(client, { schema });

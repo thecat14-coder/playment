@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "turbo dev",
     "build": "turbo build",
-    "build:backend": "pnpm --filter @gateway/backend build",
+    "build:backend": "pnpm --filter @gateway/shared build && pnpm --filter @gateway/backend build",
     "start:backend": "pnpm --filter @gateway/backend start",
     "lint": "turbo lint",
     "test": "turbo test",
