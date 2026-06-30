@@ -2,9 +2,15 @@
   "name": "gateway",
   "private": true,
   "packageManager": "pnpm@9.15.4",
+  "engines": {
+    "node": ">=22",
+    "pnpm": "9.15.4"
+  },
   "scripts": {
     "dev": "turbo dev",
     "build": "turbo build",
+    "build:backend": "pnpm --filter @gateway/backend build",
+    "start:backend": "pnpm --filter @gateway/backend start",
     "lint": "turbo lint",
     "test": "turbo test",
     "db:generate": "turbo db:generate --filter=@gateway/backend",

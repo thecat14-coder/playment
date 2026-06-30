@@ -1,0 +1,19 @@
+# Backend service — deploy from monorepo ROOT (Root Directory must be empty / "/").
+# Do not set Root Directory to apps/backend or pnpm workspace install will fail.
+
+[build]
+builder = "RAILPACK"
+buildCommand = "pnpm --filter @gateway/backend build"
+watchPatterns = [
+  "apps/backend/**",
+  "packages/shared/**",
+  "pnpm-lock.yaml",
+  "pnpm-workspace.yaml",
+  "package.json",
+  "railpack.json",
+]
+
+[deploy]
+startCommand = "pnpm --filter @gateway/backend start"
+healthcheckPath = "/health"
+restartPolicyType = "ON_FAILURE"

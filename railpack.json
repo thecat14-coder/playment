@@ -1,0 +1,20 @@
+{
+  "$schema": "https://schema.railpack.com",
+  "steps": {
+    "install": {
+      "commands": [
+        { "src": ".", "dest": "." },
+        "corepack enable",
+        "corepack prepare pnpm@9.15.4 --activate",
+        "pnpm install --frozen-lockfile"
+      ]
+    },
+    "build": {
+      "inputs": [{ "step": "install" }],
+      "commands": ["pnpm --filter @gateway/backend build"]
+    }
+  },
+  "deploy": {
+    "startCommand": "pnpm --filter @gateway/backend start"
+  }
+}
