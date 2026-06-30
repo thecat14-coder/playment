@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.gateway.android.app-mergeDebugResources-67:/values-or/values-or.xml",
+            "outputFile": "com.gateway.android.app-mergeDebugResources-70:/values-or/values-or.xml",
             "map": [
                 {
                     "source": "C:\\Users\\shash\\.gradle\\caches\\8.9\\transforms\\2be24514617847ca4ce9ec6b08547f86\\transformed\\material3-release\\res\\values-or\\values-or.xml",

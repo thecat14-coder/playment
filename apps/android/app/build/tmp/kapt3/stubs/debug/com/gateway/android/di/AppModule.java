@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKey;
+import com.gateway.android.BuildConfig;
 import com.gateway.android.data.api.GatewayApi;
 import com.gateway.android.data.api.AuthInterceptor;
 import com.gateway.android.data.db.AppDatabase;

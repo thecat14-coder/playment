@@ -30,9 +30,13 @@ export function registerEvidenceRoutes(
       parsed.data,
     );
 
-    await matchingQueue.add('match-evidence', {
-      evidenceId: evidence.id,
-    });
+    // Run matching inline so payment confirms even if BullMQ worker is delayed
+    try {
+      await matchingService.runMatchingForEvidence(evidence.id);
+    } catch (err) {
+      request.log.error({ err, evidenceId: evidence.id }, 'Inline matching failed, enqueueing retry');
+      await matchingQueue.add('match-evidence', { evidenceId: evidence.id });
+    }
 
     return reply.status(201).send({ data: evidence });
   });

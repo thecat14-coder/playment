@@ -3,6 +3,7 @@ package com.gateway.android.service;
 import com.gateway.android.data.repo.AuthRepository;
 import com.gateway.android.data.repo.DeviceRepository;
 import com.gateway.android.data.repo.EvidenceRepository;
+import com.gateway.android.data.repo.OnlineStateRepository;
 import dagger.MembersInjector;
 import dagger.internal.DaggerGenerated;
 import dagger.internal.InjectedFieldSignature;
@@ -29,18 +30,22 @@ public final class ForegroundService_MembersInjector implements MembersInjector<
 
   private final Provider<EvidenceRepository> evidenceRepoProvider;
 
+  private final Provider<OnlineStateRepository> onlineStateRepoProvider;
+
   public ForegroundService_MembersInjector(Provider<DeviceRepository> deviceRepoProvider,
-      Provider<AuthRepository> authRepoProvider,
-      Provider<EvidenceRepository> evidenceRepoProvider) {
+      Provider<AuthRepository> authRepoProvider, Provider<EvidenceRepository> evidenceRepoProvider,
+      Provider<OnlineStateRepository> onlineStateRepoProvider) {
     this.deviceRepoProvider = deviceRepoProvider;
     this.authRepoProvider = authRepoProvider;
     this.evidenceRepoProvider = evidenceRepoProvider;
+    this.onlineStateRepoProvider = onlineStateRepoProvider;
   }
 
   public static MembersInjector<ForegroundService> create(
       Provider<DeviceRepository> deviceRepoProvider, Provider<AuthRepository> authRepoProvider,
-      Provider<EvidenceRepository> evidenceRepoProvider) {
-    return new ForegroundService_MembersInjector(deviceRepoProvider, authRepoProvider, evidenceRepoProvider);
+      Provider<EvidenceRepository> evidenceRepoProvider,
+      Provider<OnlineStateRepository> onlineStateRepoProvider) {
+    return new ForegroundService_MembersInjector(deviceRepoProvider, authRepoProvider, evidenceRepoProvider, onlineStateRepoProvider);
   }
 
   @Override
@@ -48,6 +53,7 @@ public final class ForegroundService_MembersInjector implements MembersInjector<
     injectDeviceRepo(instance, deviceRepoProvider.get());
     injectAuthRepo(instance, authRepoProvider.get());
     injectEvidenceRepo(instance, evidenceRepoProvider.get());
+    injectOnlineStateRepo(instance, onlineStateRepoProvider.get());
   }
 
   @InjectedFieldSignature("com.gateway.android.service.ForegroundService.deviceRepo")
@@ -64,5 +70,11 @@ public final class ForegroundService_MembersInjector implements MembersInjector<
   public static void injectEvidenceRepo(ForegroundService instance,
       EvidenceRepository evidenceRepo) {
     instance.evidenceRepo = evidenceRepo;
+  }
+
+  @InjectedFieldSignature("com.gateway.android.service.ForegroundService.onlineStateRepo")
+  public static void injectOnlineStateRepo(ForegroundService instance,
+      OnlineStateRepository onlineStateRepo) {
+    instance.onlineStateRepo = onlineStateRepo;
   }
 }

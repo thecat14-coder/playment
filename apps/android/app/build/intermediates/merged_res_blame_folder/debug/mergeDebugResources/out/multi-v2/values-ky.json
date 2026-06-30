@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.gateway.android.app-mergeDebugResources-67:/values-ky/values-ky.xml",
+            "outputFile": "com.gateway.android.app-mergeDebugResources-70:/values-ky/values-ky.xml",
             "map": [
                 {
                     "source": "C:\\Users\\shash\\.gradle\\caches\\8.9\\transforms\\83e2bf482600af109e1b21bde1710270\\transformed\\core-1.13.1\\res\\values-ky\\values-ky.xml",

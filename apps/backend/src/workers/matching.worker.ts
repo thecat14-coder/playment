@@ -20,30 +20,7 @@ export function createMatchingWorker(
     'evidence-matching',
     async (job) => {
       const { evidenceId } = job.data as { evidenceId: string };
-
-      const evidence = await evidenceRepo.findById(evidenceId);
-      if (!evidence) {
-        throw new Error(`Evidence ${evidenceId} not found`);
-      }
-
-      const pendingPayments = await paymentRepo.findByMerchantAndAmount(
-        evidence.merchant_id,
-        evidence.amount,
-      );
-
-      const matchingPayments = pendingPayments.filter(
-        (p) => p.status === PaymentStatus.PENDING,
-      );
-
-      await matchingService.match({
-        evidence,
-        pendingPayments: matchingPayments.map((p) => ({
-          id: p.id,
-          amount: p.amount,
-          created_at: p.created_at,
-          merchant_id: p.merchant_id,
-        })),
-      });
+      await matchingService.runMatchingForEvidence(evidenceId);
     },
     {
       connection: redis as any,

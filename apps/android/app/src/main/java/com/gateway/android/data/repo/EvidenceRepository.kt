@@ -55,7 +55,7 @@ class EvidenceRepository @Inject constructor(
 
     suspend fun uploadEvidence(evidence: PendingEvidence) {
         try {
-            val body = mapOf<String, Any>(
+            val body = mutableMapOf<String, Any>(
                 "raw_notification" to evidence.rawNotification,
                 "amount" to evidence.amount,
                 "utr" to (evidence.utr ?: ""),
@@ -67,13 +67,21 @@ class EvidenceRepository @Inject constructor(
                 "nonce" to evidence.nonce,
                 "signature" to evidence.signature,
             )
+            if (!evidence.senderVpa.isNullOrBlank()) {
+                body["sender_vpa"] = evidence.senderVpa
+            }
+            if (!evidence.senderName.isNullOrBlank()) {
+                body["sender_name"] = evidence.senderName
+            }
             val response = api.uploadEvidence(body)
             if (response.isSuccessful) {
                 evidenceDao.deleteById(evidence.id)
             } else {
+                android.util.Log.e("EvidenceRepo", "Upload failed: ${response.code()} ${response.errorBody()?.string()}")
                 evidenceDao.incrementRetry(evidence.id)
             }
         } catch (e: Exception) {
+            android.util.Log.e("EvidenceRepo", "Upload error: ${e.message}")
             evidenceDao.incrementRetry(evidence.id)
         }
     }

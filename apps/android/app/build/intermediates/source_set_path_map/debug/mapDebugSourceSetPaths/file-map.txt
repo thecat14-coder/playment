@@ -9,64 +9,67 @@ com.gateway.android.app-animation-core-release-7 C:\Users\shash\.gradle\caches\8
 com.gateway.android.app-room-ktx-2.6.1-8 C:\Users\shash\.gradle\caches\8.9\transforms\182766604306fe4ce80f45999d84557f\transformed\room-ktx-2.6.1\res
 com.gateway.android.app-emoji2-1.3.0-9 C:\Users\shash\.gradle\caches\8.9\transforms\19a206de0b234fac578fbf684b31466d\transformed\emoji2-1.3.0\res
 com.gateway.android.app-datastore-preferences-1.0.0-10 C:\Users\shash\.gradle\caches\8.9\transforms\1bab2de3bb5f2a886513e2cd1bdf8d50\transformed\datastore-preferences-1.0.0\res
-com.gateway.android.app-lifecycle-runtime-release-11 C:\Users\shash\.gradle\caches\8.9\transforms\24fd01aedbdabd0d63ee05954369a97c\transformed\lifecycle-runtime-release\res
-com.gateway.android.app-navigation-common-2.7.6-12 C:\Users\shash\.gradle\caches\8.9\transforms\259174e9308c8e7d8f57e8261261d1b0\transformed\navigation-common-2.7.6\res
-com.gateway.android.app-ui-graphics-release-13 C:\Users\shash\.gradle\caches\8.9\transforms\25b2a2d5a3366ecb5e1893469c402702\transformed\ui-graphics-release\res
-com.gateway.android.app-navigation-runtime-ktx-2.7.6-14 C:\Users\shash\.gradle\caches\8.9\transforms\28f601edd5ff9629ae48e6368e2dc878\transformed\navigation-runtime-ktx-2.7.6\res
-com.gateway.android.app-material3-release-15 C:\Users\shash\.gradle\caches\8.9\transforms\2be24514617847ca4ce9ec6b08547f86\transformed\material3-release\res
-com.gateway.android.app-ui-tooling-release-16 C:\Users\shash\.gradle\caches\8.9\transforms\2c628264b4988b23c2212d4ba05aa45c\transformed\ui-tooling-release\res
-com.gateway.android.app-work-runtime-2.9.0-17 C:\Users\shash\.gradle\caches\8.9\transforms\3192778257c383e56882cb30af1803db\transformed\work-runtime-2.9.0\res
-com.gateway.android.app-lifecycle-viewmodel-savedstate-2.8.3-18 C:\Users\shash\.gradle\caches\8.9\transforms\31a754f1aabf95946f9b197d24723d4f\transformed\lifecycle-viewmodel-savedstate-2.8.3\res
-com.gateway.android.app-play-services-basement-18.1.0-19 C:\Users\shash\.gradle\caches\8.9\transforms\325789ec8f2949bdaed66ffed4aa176b\transformed\play-services-basement-18.1.0\res
-com.gateway.android.app-work-runtime-ktx-2.9.0-20 C:\Users\shash\.gradle\caches\8.9\transforms\40aace11abc7b76e0bcacb5d0b5b3394\transformed\work-runtime-ktx-2.9.0\res
-com.gateway.android.app-lifecycle-viewmodel-compose-release-21 C:\Users\shash\.gradle\caches\8.9\transforms\415b22e064423b47f98fa5057fceaf77\transformed\lifecycle-viewmodel-compose-release\res
-com.gateway.android.app-core-runtime-2.2.0-22 C:\Users\shash\.gradle\caches\8.9\transforms\46d6670f3acc4572905104b25ce73b92\transformed\core-runtime-2.2.0\res
-com.gateway.android.app-savedstate-ktx-1.2.1-23 C:\Users\shash\.gradle\caches\8.9\transforms\4a99dc8b40ee48bc1f10708eaa9203bf\transformed\savedstate-ktx-1.2.1\res
-com.gateway.android.app-activity-1.8.2-24 C:\Users\shash\.gradle\caches\8.9\transforms\4d68b0018d127b2356132317b97cd8cc\transformed\activity-1.8.2\res
-com.gateway.android.app-firebase-common-20.4.2-25 C:\Users\shash\.gradle\caches\8.9\transforms\4e697908d879d44bcdeb45a3fdcf1921\transformed\firebase-common-20.4.2\res
-com.gateway.android.app-ui-release-26 C:\Users\shash\.gradle\caches\8.9\transforms\4ecd655e5b99c755add3f6f8ed2d20e2\transformed\ui-release\res
-com.gateway.android.app-datastore-1.0.0-27 C:\Users\shash\.gradle\caches\8.9\transforms\4fa2de70a860c3fbf5672d0c3dce89dd\transformed\datastore-1.0.0\res
-com.gateway.android.app-hilt-work-1.2.0-28 C:\Users\shash\.gradle\caches\8.9\transforms\50ecc4b3186b944ac9beb1b3045c8169\transformed\hilt-work-1.2.0\res
-com.gateway.android.app-material-ripple-release-29 C:\Users\shash\.gradle\caches\8.9\transforms\5289d4e43d1f13de43a5cb12e3a78411\transformed\material-ripple-release\res
-com.gateway.android.app-lifecycle-viewmodel-ktx-2.8.3-30 C:\Users\shash\.gradle\caches\8.9\transforms\58d868b6346a35c17514840e4a33f17c\transformed\lifecycle-viewmodel-ktx-2.8.3\res
-com.gateway.android.app-ui-unit-release-31 C:\Users\shash\.gradle\caches\8.9\transforms\597c57887d16fe0b1bbeeb8ba60be0f2\transformed\ui-unit-release\res
-com.gateway.android.app-lifecycle-livedata-2.8.3-32 C:\Users\shash\.gradle\caches\8.9\transforms\5cd26c1e4a5defe54688a79324982534\transformed\lifecycle-livedata-2.8.3\res
-com.gateway.android.app-sqlite-2.4.0-33 C:\Users\shash\.gradle\caches\8.9\transforms\5d05502de1cdcaa4b69fd2deab3d16f6\transformed\sqlite-2.4.0\res
-com.gateway.android.app-savedstate-1.2.1-34 C:\Users\shash\.gradle\caches\8.9\transforms\5ed70377dd236d00e9deecd654fd2379\transformed\savedstate-1.2.1\res
-com.gateway.android.app-lifecycle-service-2.8.3-35 C:\Users\shash\.gradle\caches\8.9\transforms\716ed0db3cbc2215515868fe67407b49\transformed\lifecycle-service-2.8.3\res
-com.gateway.android.app-material-release-36 C:\Users\shash\.gradle\caches\8.9\transforms\77997c8d218c72e605a711201c242c49\transformed\material-release\res
-com.gateway.android.app-ui-util-release-37 C:\Users\shash\.gradle\caches\8.9\transforms\7c14023225dedef093bc1c6393d2662a\transformed\ui-util-release\res
-com.gateway.android.app-material-icons-core-release-38 C:\Users\shash\.gradle\caches\8.9\transforms\810f6aab62392fb5e34ffb181192f070\transformed\material-icons-core-release\res
-com.gateway.android.app-activity-compose-1.8.2-39 C:\Users\shash\.gradle\caches\8.9\transforms\8322fa11fd541dff0b0371240b37892b\transformed\activity-compose-1.8.2\res
-com.gateway.android.app-navigation-common-ktx-2.7.6-40 C:\Users\shash\.gradle\caches\8.9\transforms\83bc847b3c5e351ca70bdde77301b663\transformed\navigation-common-ktx-2.7.6\res
-com.gateway.android.app-core-1.13.1-41 C:\Users\shash\.gradle\caches\8.9\transforms\83e2bf482600af109e1b21bde1710270\transformed\core-1.13.1\res
-com.gateway.android.app-sqlite-framework-2.4.0-42 C:\Users\shash\.gradle\caches\8.9\transforms\8d15ad198d0f8db1de829915d41f254e\transformed\sqlite-framework-2.4.0\res
-com.gateway.android.app-lifecycle-runtime-ktx-release-43 C:\Users\shash\.gradle\caches\8.9\transforms\8d4713670a320a4745afcd1626580319\transformed\lifecycle-runtime-ktx-release\res
-com.gateway.android.app-ui-tooling-preview-release-44 C:\Users\shash\.gradle\caches\8.9\transforms\95d44d3ce8b7d88c553c542c55b86615\transformed\ui-tooling-preview-release\res
-com.gateway.android.app-graphics-path-1.0.1-45 C:\Users\shash\.gradle\caches\8.9\transforms\96f8e175ce652ef727cbd84eea52396a\transformed\graphics-path-1.0.1\res
-com.gateway.android.app-animation-release-46 C:\Users\shash\.gradle\caches\8.9\transforms\a10f58ad1a8a23988fcc4f87e654d1df\transformed\animation-release\res
-com.gateway.android.app-startup-runtime-1.1.1-47 C:\Users\shash\.gradle\caches\8.9\transforms\a70a85958138af6767e4276655edf76c\transformed\startup-runtime-1.1.1\res
-com.gateway.android.app-ui-tooling-data-release-48 C:\Users\shash\.gradle\caches\8.9\transforms\b1133afb1d90005580e4f7e679df326e\transformed\ui-tooling-data-release\res
-com.gateway.android.app-lifecycle-runtime-compose-release-49 C:\Users\shash\.gradle\caches\8.9\transforms\b13bbd65a8d2981bcbfc853c1b8eed44\transformed\lifecycle-runtime-compose-release\res
-com.gateway.android.app-runtime-release-50 C:\Users\shash\.gradle\caches\8.9\transforms\b22ff1b26752049bea0701b50d256fdc\transformed\runtime-release\res
-com.gateway.android.app-foundation-layout-release-51 C:\Users\shash\.gradle\caches\8.9\transforms\c31d438594d11b0b2442f719e9ba6610\transformed\foundation-layout-release\res
-com.gateway.android.app-lifecycle-process-2.8.3-52 C:\Users\shash\.gradle\caches\8.9\transforms\c55faa3e3b56ffb03ced3eb8174cb19e\transformed\lifecycle-process-2.8.3\res
-com.gateway.android.app-navigation-compose-2.7.6-53 C:\Users\shash\.gradle\caches\8.9\transforms\c8f2051dc773a6225f6de6ce7f0e42c6\transformed\navigation-compose-2.7.6\res
-com.gateway.android.app-room-runtime-2.6.1-54 C:\Users\shash\.gradle\caches\8.9\transforms\d7a435b665d061df66ff04cf70657ca1\transformed\room-runtime-2.6.1\res
-com.gateway.android.app-runtime-saveable-release-55 C:\Users\shash\.gradle\caches\8.9\transforms\db69ff3324ba7875f42af90bcfd18f06\transformed\runtime-saveable-release\res
-com.gateway.android.app-lifecycle-livedata-core-2.8.3-56 C:\Users\shash\.gradle\caches\8.9\transforms\dcf0501849c0dac1879499e2a37cd5bd\transformed\lifecycle-livedata-core-2.8.3\res
-com.gateway.android.app-navigation-runtime-2.7.6-57 C:\Users\shash\.gradle\caches\8.9\transforms\ddb69abcdc32bf47a47aa885c3c949b0\transformed\navigation-runtime-2.7.6\res
-com.gateway.android.app-customview-poolingcontainer-1.0.0-58 C:\Users\shash\.gradle\caches\8.9\transforms\e06eb305031eb1a8353442965c633860\transformed\customview-poolingcontainer-1.0.0\res
-com.gateway.android.app-annotation-experimental-1.4.0-59 C:\Users\shash\.gradle\caches\8.9\transforms\e42797b4b985b41ecb8ac3ecb36e6680\transformed\annotation-experimental-1.4.0\res
-com.gateway.android.app-profileinstaller-1.3.1-60 C:\Users\shash\.gradle\caches\8.9\transforms\e6ce41cc2f7e200eb710bd8e977cb32c\transformed\profileinstaller-1.3.1\res
-com.gateway.android.app-activity-ktx-1.8.2-61 C:\Users\shash\.gradle\caches\8.9\transforms\edbf40840e7ddf1b35410a7cd8e0bdfc\transformed\activity-ktx-1.8.2\res
-com.gateway.android.app-fragment-1.5.1-62 C:\Users\shash\.gradle\caches\8.9\transforms\f6b0128d6bed28a33b212faab3f4f6ce\transformed\fragment-1.5.1\res
-com.gateway.android.app-lifecycle-livedata-core-ktx-2.8.3-63 C:\Users\shash\.gradle\caches\8.9\transforms\faf94971242c058c894fcdf187dbc5bf\transformed\lifecycle-livedata-core-ktx-2.8.3\res
-com.gateway.android.app-lifecycle-viewmodel-release-64 C:\Users\shash\.gradle\caches\8.9\transforms\ff635048ee2deed76661b40e0c9450c2\transformed\lifecycle-viewmodel-release\res
-com.gateway.android.app-pngs-65 E:\payment gateway\apps\android\app\build\generated\res\pngs\debug
-com.gateway.android.app-resValues-66 E:\payment gateway\apps\android\app\build\generated\res\resValues\debug
-com.gateway.android.app-packageDebugResources-67 E:\payment gateway\apps\android\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
-com.gateway.android.app-packageDebugResources-68 E:\payment gateway\apps\android\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
-com.gateway.android.app-debug-69 E:\payment gateway\apps\android\app\build\intermediates\merged_res\debug\mergeDebugResources
-com.gateway.android.app-debug-70 E:\payment gateway\apps\android\app\src\debug\res
-com.gateway.android.app-main-71 E:\payment gateway\apps\android\app\src\main\res
+com.gateway.android.app-coil-base-2.5.0-11 C:\Users\shash\.gradle\caches\8.9\transforms\211a7d801d2eb80f37a405ce4f372ae8\transformed\coil-base-2.5.0\res
+com.gateway.android.app-material-icons-extended-release-12 C:\Users\shash\.gradle\caches\8.9\transforms\22cd923b49d9869511f4b03a2987d1f0\transformed\material-icons-extended-release\res
+com.gateway.android.app-lifecycle-runtime-release-13 C:\Users\shash\.gradle\caches\8.9\transforms\24fd01aedbdabd0d63ee05954369a97c\transformed\lifecycle-runtime-release\res
+com.gateway.android.app-navigation-common-2.7.6-14 C:\Users\shash\.gradle\caches\8.9\transforms\259174e9308c8e7d8f57e8261261d1b0\transformed\navigation-common-2.7.6\res
+com.gateway.android.app-ui-graphics-release-15 C:\Users\shash\.gradle\caches\8.9\transforms\25b2a2d5a3366ecb5e1893469c402702\transformed\ui-graphics-release\res
+com.gateway.android.app-navigation-runtime-ktx-2.7.6-16 C:\Users\shash\.gradle\caches\8.9\transforms\28f601edd5ff9629ae48e6368e2dc878\transformed\navigation-runtime-ktx-2.7.6\res
+com.gateway.android.app-material3-release-17 C:\Users\shash\.gradle\caches\8.9\transforms\2be24514617847ca4ce9ec6b08547f86\transformed\material3-release\res
+com.gateway.android.app-ui-tooling-release-18 C:\Users\shash\.gradle\caches\8.9\transforms\2c628264b4988b23c2212d4ba05aa45c\transformed\ui-tooling-release\res
+com.gateway.android.app-work-runtime-2.9.0-19 C:\Users\shash\.gradle\caches\8.9\transforms\3192778257c383e56882cb30af1803db\transformed\work-runtime-2.9.0\res
+com.gateway.android.app-lifecycle-viewmodel-savedstate-2.8.3-20 C:\Users\shash\.gradle\caches\8.9\transforms\31a754f1aabf95946f9b197d24723d4f\transformed\lifecycle-viewmodel-savedstate-2.8.3\res
+com.gateway.android.app-play-services-basement-18.1.0-21 C:\Users\shash\.gradle\caches\8.9\transforms\325789ec8f2949bdaed66ffed4aa176b\transformed\play-services-basement-18.1.0\res
+com.gateway.android.app-work-runtime-ktx-2.9.0-22 C:\Users\shash\.gradle\caches\8.9\transforms\40aace11abc7b76e0bcacb5d0b5b3394\transformed\work-runtime-ktx-2.9.0\res
+com.gateway.android.app-lifecycle-viewmodel-compose-release-23 C:\Users\shash\.gradle\caches\8.9\transforms\415b22e064423b47f98fa5057fceaf77\transformed\lifecycle-viewmodel-compose-release\res
+com.gateway.android.app-core-runtime-2.2.0-24 C:\Users\shash\.gradle\caches\8.9\transforms\46d6670f3acc4572905104b25ce73b92\transformed\core-runtime-2.2.0\res
+com.gateway.android.app-savedstate-ktx-1.2.1-25 C:\Users\shash\.gradle\caches\8.9\transforms\4a99dc8b40ee48bc1f10708eaa9203bf\transformed\savedstate-ktx-1.2.1\res
+com.gateway.android.app-activity-1.8.2-26 C:\Users\shash\.gradle\caches\8.9\transforms\4d68b0018d127b2356132317b97cd8cc\transformed\activity-1.8.2\res
+com.gateway.android.app-firebase-common-20.4.2-27 C:\Users\shash\.gradle\caches\8.9\transforms\4e697908d879d44bcdeb45a3fdcf1921\transformed\firebase-common-20.4.2\res
+com.gateway.android.app-ui-release-28 C:\Users\shash\.gradle\caches\8.9\transforms\4ecd655e5b99c755add3f6f8ed2d20e2\transformed\ui-release\res
+com.gateway.android.app-datastore-1.0.0-29 C:\Users\shash\.gradle\caches\8.9\transforms\4fa2de70a860c3fbf5672d0c3dce89dd\transformed\datastore-1.0.0\res
+com.gateway.android.app-hilt-work-1.2.0-30 C:\Users\shash\.gradle\caches\8.9\transforms\50ecc4b3186b944ac9beb1b3045c8169\transformed\hilt-work-1.2.0\res
+com.gateway.android.app-material-ripple-release-31 C:\Users\shash\.gradle\caches\8.9\transforms\5289d4e43d1f13de43a5cb12e3a78411\transformed\material-ripple-release\res
+com.gateway.android.app-lifecycle-viewmodel-ktx-2.8.3-32 C:\Users\shash\.gradle\caches\8.9\transforms\58d868b6346a35c17514840e4a33f17c\transformed\lifecycle-viewmodel-ktx-2.8.3\res
+com.gateway.android.app-ui-unit-release-33 C:\Users\shash\.gradle\caches\8.9\transforms\597c57887d16fe0b1bbeeb8ba60be0f2\transformed\ui-unit-release\res
+com.gateway.android.app-lifecycle-livedata-2.8.3-34 C:\Users\shash\.gradle\caches\8.9\transforms\5cd26c1e4a5defe54688a79324982534\transformed\lifecycle-livedata-2.8.3\res
+com.gateway.android.app-sqlite-2.4.0-35 C:\Users\shash\.gradle\caches\8.9\transforms\5d05502de1cdcaa4b69fd2deab3d16f6\transformed\sqlite-2.4.0\res
+com.gateway.android.app-savedstate-1.2.1-36 C:\Users\shash\.gradle\caches\8.9\transforms\5ed70377dd236d00e9deecd654fd2379\transformed\savedstate-1.2.1\res
+com.gateway.android.app-lifecycle-service-2.8.3-37 C:\Users\shash\.gradle\caches\8.9\transforms\716ed0db3cbc2215515868fe67407b49\transformed\lifecycle-service-2.8.3\res
+com.gateway.android.app-material-release-38 C:\Users\shash\.gradle\caches\8.9\transforms\77997c8d218c72e605a711201c242c49\transformed\material-release\res
+com.gateway.android.app-ui-util-release-39 C:\Users\shash\.gradle\caches\8.9\transforms\7c14023225dedef093bc1c6393d2662a\transformed\ui-util-release\res
+com.gateway.android.app-material-icons-core-release-40 C:\Users\shash\.gradle\caches\8.9\transforms\810f6aab62392fb5e34ffb181192f070\transformed\material-icons-core-release\res
+com.gateway.android.app-activity-compose-1.8.2-41 C:\Users\shash\.gradle\caches\8.9\transforms\8322fa11fd541dff0b0371240b37892b\transformed\activity-compose-1.8.2\res
+com.gateway.android.app-navigation-common-ktx-2.7.6-42 C:\Users\shash\.gradle\caches\8.9\transforms\83bc847b3c5e351ca70bdde77301b663\transformed\navigation-common-ktx-2.7.6\res
+com.gateway.android.app-core-1.13.1-43 C:\Users\shash\.gradle\caches\8.9\transforms\83e2bf482600af109e1b21bde1710270\transformed\core-1.13.1\res
+com.gateway.android.app-sqlite-framework-2.4.0-44 C:\Users\shash\.gradle\caches\8.9\transforms\8d15ad198d0f8db1de829915d41f254e\transformed\sqlite-framework-2.4.0\res
+com.gateway.android.app-lifecycle-runtime-ktx-release-45 C:\Users\shash\.gradle\caches\8.9\transforms\8d4713670a320a4745afcd1626580319\transformed\lifecycle-runtime-ktx-release\res
+com.gateway.android.app-ui-tooling-preview-release-46 C:\Users\shash\.gradle\caches\8.9\transforms\95d44d3ce8b7d88c553c542c55b86615\transformed\ui-tooling-preview-release\res
+com.gateway.android.app-graphics-path-1.0.1-47 C:\Users\shash\.gradle\caches\8.9\transforms\96f8e175ce652ef727cbd84eea52396a\transformed\graphics-path-1.0.1\res
+com.gateway.android.app-animation-release-48 C:\Users\shash\.gradle\caches\8.9\transforms\a10f58ad1a8a23988fcc4f87e654d1df\transformed\animation-release\res
+com.gateway.android.app-startup-runtime-1.1.1-49 C:\Users\shash\.gradle\caches\8.9\transforms\a70a85958138af6767e4276655edf76c\transformed\startup-runtime-1.1.1\res
+com.gateway.android.app-ui-tooling-data-release-50 C:\Users\shash\.gradle\caches\8.9\transforms\b1133afb1d90005580e4f7e679df326e\transformed\ui-tooling-data-release\res
+com.gateway.android.app-lifecycle-runtime-compose-release-51 C:\Users\shash\.gradle\caches\8.9\transforms\b13bbd65a8d2981bcbfc853c1b8eed44\transformed\lifecycle-runtime-compose-release\res
+com.gateway.android.app-runtime-release-52 C:\Users\shash\.gradle\caches\8.9\transforms\b22ff1b26752049bea0701b50d256fdc\transformed\runtime-release\res
+com.gateway.android.app-foundation-layout-release-53 C:\Users\shash\.gradle\caches\8.9\transforms\c31d438594d11b0b2442f719e9ba6610\transformed\foundation-layout-release\res
+com.gateway.android.app-lifecycle-process-2.8.3-54 C:\Users\shash\.gradle\caches\8.9\transforms\c55faa3e3b56ffb03ced3eb8174cb19e\transformed\lifecycle-process-2.8.3\res
+com.gateway.android.app-navigation-compose-2.7.6-55 C:\Users\shash\.gradle\caches\8.9\transforms\c8f2051dc773a6225f6de6ce7f0e42c6\transformed\navigation-compose-2.7.6\res
+com.gateway.android.app-room-runtime-2.6.1-56 C:\Users\shash\.gradle\caches\8.9\transforms\d7a435b665d061df66ff04cf70657ca1\transformed\room-runtime-2.6.1\res
+com.gateway.android.app-runtime-saveable-release-57 C:\Users\shash\.gradle\caches\8.9\transforms\db69ff3324ba7875f42af90bcfd18f06\transformed\runtime-saveable-release\res
+com.gateway.android.app-lifecycle-livedata-core-2.8.3-58 C:\Users\shash\.gradle\caches\8.9\transforms\dcf0501849c0dac1879499e2a37cd5bd\transformed\lifecycle-livedata-core-2.8.3\res
+com.gateway.android.app-navigation-runtime-2.7.6-59 C:\Users\shash\.gradle\caches\8.9\transforms\ddb69abcdc32bf47a47aa885c3c949b0\transformed\navigation-runtime-2.7.6\res
+com.gateway.android.app-customview-poolingcontainer-1.0.0-60 C:\Users\shash\.gradle\caches\8.9\transforms\e06eb305031eb1a8353442965c633860\transformed\customview-poolingcontainer-1.0.0\res
+com.gateway.android.app-annotation-experimental-1.4.0-61 C:\Users\shash\.gradle\caches\8.9\transforms\e42797b4b985b41ecb8ac3ecb36e6680\transformed\annotation-experimental-1.4.0\res
+com.gateway.android.app-profileinstaller-1.3.1-62 C:\Users\shash\.gradle\caches\8.9\transforms\e6ce41cc2f7e200eb710bd8e977cb32c\transformed\profileinstaller-1.3.1\res
+com.gateway.android.app-activity-ktx-1.8.2-63 C:\Users\shash\.gradle\caches\8.9\transforms\edbf40840e7ddf1b35410a7cd8e0bdfc\transformed\activity-ktx-1.8.2\res
+com.gateway.android.app-appcompat-resources-1.6.1-64 C:\Users\shash\.gradle\caches\8.9\transforms\f508dda862d2e04cd2c326e5db43bdb0\transformed\appcompat-resources-1.6.1\res
+com.gateway.android.app-fragment-1.5.1-65 C:\Users\shash\.gradle\caches\8.9\transforms\f6b0128d6bed28a33b212faab3f4f6ce\transformed\fragment-1.5.1\res
+com.gateway.android.app-lifecycle-livedata-core-ktx-2.8.3-66 C:\Users\shash\.gradle\caches\8.9\transforms\faf94971242c058c894fcdf187dbc5bf\transformed\lifecycle-livedata-core-ktx-2.8.3\res
+com.gateway.android.app-lifecycle-viewmodel-release-67 C:\Users\shash\.gradle\caches\8.9\transforms\ff635048ee2deed76661b40e0c9450c2\transformed\lifecycle-viewmodel-release\res
+com.gateway.android.app-pngs-68 E:\payment gateway\apps\android\app\build\generated\res\pngs\debug
+com.gateway.android.app-resValues-69 E:\payment gateway\apps\android\app\build\generated\res\resValues\debug
+com.gateway.android.app-packageDebugResources-70 E:\payment gateway\apps\android\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.gateway.android.app-packageDebugResources-71 E:\payment gateway\apps\android\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.gateway.android.app-debug-72 E:\payment gateway\apps\android\app\build\intermediates\merged_res\debug\mergeDebugResources
+com.gateway.android.app-debug-73 E:\payment gateway\apps\android\app\src\debug\res
+com.gateway.android.app-main-74 E:\payment gateway\apps\android\app\src\main\res

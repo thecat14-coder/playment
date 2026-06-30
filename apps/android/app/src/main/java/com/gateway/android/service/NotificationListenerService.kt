@@ -4,6 +4,7 @@ import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
 import com.gateway.android.data.repo.EvidenceRepository
+import com.gateway.android.domain.parser.NotificationParser
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,6 +16,9 @@ class NotificationListenerService : NotificationListenerService() {
 
     @Inject
     lateinit var evidenceRepo: EvidenceRepository
+
+    @Inject
+    lateinit var parser: NotificationParser
 
     private val scope = CoroutineScope(Dispatchers.IO)
 
@@ -33,6 +37,10 @@ class NotificationListenerService : NotificationListenerService() {
         val timestamp = sbn.postTime
 
         Log.d(TAG, "Notification from $packageName: $title")
+
+        if (!parser.isLikelyPaymentNotification(packageName, title, body)) {
+            return
+        }
 
         scope.launch {
             evidenceRepo.processAndUpload(title, body, packageName, timestamp)

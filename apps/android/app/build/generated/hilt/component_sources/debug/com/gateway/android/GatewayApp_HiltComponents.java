@@ -8,9 +8,16 @@ import com.gateway.android.service.HealthReporter_HiltModule;
 import com.gateway.android.service.HeartbeatWorker_HiltModule;
 import com.gateway.android.service.NotificationListenerService_GeneratedInjector;
 import com.gateway.android.ui.MainActivity_GeneratedInjector;
+import com.gateway.android.ui.developer.DeveloperViewModel_HiltModules;
 import com.gateway.android.ui.feed.PaymentFeedViewModel_HiltModules;
+import com.gateway.android.ui.health.DeviceHealthViewModel_HiltModules;
 import com.gateway.android.ui.home.HomeViewModel_HiltModules;
-import com.gateway.android.ui.login.LoginViewModel_HiltModules;
+import com.gateway.android.ui.links.CreateLinkViewModel_HiltModules;
+import com.gateway.android.ui.links.PaymentLinksViewModel_HiltModules;
+import com.gateway.android.ui.login.AuthViewModel_HiltModules;
+import com.gateway.android.ui.payments.PaymentsViewModel_HiltModules;
+import com.gateway.android.ui.settings.SettingsViewModel_HiltModules;
+import com.gateway.android.ui.setup.UpiSetupViewModel_HiltModules;
 import dagger.Binds;
 import dagger.Component;
 import dagger.Module;
@@ -168,13 +175,20 @@ public final class GatewayApp_HiltComponents {
 
   @Subcomponent(
       modules = {
+          AuthViewModel_HiltModules.KeyModule.class,
+          CreateLinkViewModel_HiltModules.KeyModule.class,
+          DeveloperViewModel_HiltModules.KeyModule.class,
+          DeviceHealthViewModel_HiltModules.KeyModule.class,
           ActivityCBuilderModule.class,
           ViewModelCBuilderModule.class,
           HiltWrapper_ActivityRetainedComponentManager_LifecycleModule.class,
           HiltWrapper_SavedStateHandleModule.class,
           HomeViewModel_HiltModules.KeyModule.class,
-          LoginViewModel_HiltModules.KeyModule.class,
-          PaymentFeedViewModel_HiltModules.KeyModule.class
+          PaymentFeedViewModel_HiltModules.KeyModule.class,
+          PaymentLinksViewModel_HiltModules.KeyModule.class,
+          PaymentsViewModel_HiltModules.KeyModule.class,
+          SettingsViewModel_HiltModules.KeyModule.class,
+          UpiSetupViewModel_HiltModules.KeyModule.class
       }
   )
   @ActivityRetainedScoped
@@ -210,10 +224,17 @@ public final class GatewayApp_HiltComponents {
 
   @Subcomponent(
       modules = {
+          AuthViewModel_HiltModules.BindsModule.class,
+          CreateLinkViewModel_HiltModules.BindsModule.class,
+          DeveloperViewModel_HiltModules.BindsModule.class,
+          DeviceHealthViewModel_HiltModules.BindsModule.class,
           HiltWrapper_HiltViewModelFactory_ViewModelModule.class,
           HomeViewModel_HiltModules.BindsModule.class,
-          LoginViewModel_HiltModules.BindsModule.class,
-          PaymentFeedViewModel_HiltModules.BindsModule.class
+          PaymentFeedViewModel_HiltModules.BindsModule.class,
+          PaymentLinksViewModel_HiltModules.BindsModule.class,
+          PaymentsViewModel_HiltModules.BindsModule.class,
+          SettingsViewModel_HiltModules.BindsModule.class,
+          UpiSetupViewModel_HiltModules.BindsModule.class
       }
   )
   @ViewModelScoped

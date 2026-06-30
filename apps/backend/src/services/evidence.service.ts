@@ -25,7 +25,12 @@ export class EvidenceService {
       .createHmac('sha256', deviceSecret)
       .update(data)
       .digest('hex');
-    return crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expected));
+    if (signature.length !== expected.length) return false;
+    try {
+      return crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expected));
+    } catch {
+      return false;
+    }
   }
 
   async checkNonce(nonce: string): Promise<boolean> {

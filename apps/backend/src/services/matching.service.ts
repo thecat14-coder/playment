@@ -82,6 +82,16 @@ export class MatchingService {
       }
     }
 
+    // MVP: one pending payment with exact amount within 60 min → auto-confirm
+    if (matchingPayments.length === 1 && bestPaymentId) {
+      const minutesDelta = Math.abs(
+        evidence.notification_timestamp.getTime() - matchingPayments[0]!.created_at.getTime(),
+      ) / 60000;
+      if (minutesDelta <= 60) {
+        bestScore = Math.max(bestScore, CONFIDENCE_THRESHOLDS.HIGH);
+      }
+    }
+
     const confidenceLevel = getConfidenceLevel(bestScore);
     let decision: MatchingDecision;
 
@@ -137,7 +147,7 @@ export class MatchingService {
   ): ScoreBreakdown {
     let timeProximity = 0;
     const timeDelta = evidence.notification_timestamp.getTime() - payment.created_at.getTime();
-    const minutesDelta = timeDelta / 60000;
+    const minutesDelta = Math.abs(timeDelta) / 60000;
 
     if (minutesDelta < 5) timeProximity = MATCHING_SCORES.TIME_WITHIN_5MIN;
     else if (minutesDelta < 15) timeProximity = MATCHING_SCORES.TIME_WITHIN_15MIN;
@@ -190,6 +200,33 @@ export class MatchingService {
 
   async getMatchingForPayment(paymentId: string) {
     return this.matchingRepo.findByPaymentId(paymentId);
+  }
+
+  /** Run matching immediately after evidence upload (MVP — do not rely only on BullMQ). */
+  async runMatchingForEvidence(evidenceId: string): Promise<MatchingOutput> {
+    const evidence = await this.evidenceRepo.findById(evidenceId);
+    if (!evidence) {
+      throw new Error(`Evidence ${evidenceId} not found`);
+    }
+
+    const pendingPayments = await this.paymentRepo.findByMerchantAndAmount(
+      evidence.merchant_id,
+      evidence.amount,
+    );
+
+    const matchingPayments = pendingPayments.filter(
+      (p) => p.status === PaymentStatus.PENDING,
+    );
+
+    return this.match({
+      evidence,
+      pendingPayments: matchingPayments.map((p) => ({
+        id: p.id,
+        amount: p.amount,
+        created_at: p.created_at,
+        merchant_id: p.merchant_id,
+      })),
+    });
   }
 
   async retryMatch(paymentId: string): Promise<MatchingOutput | null> {

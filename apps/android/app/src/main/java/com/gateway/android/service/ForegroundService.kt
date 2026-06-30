@@ -28,11 +28,15 @@ class ForegroundService : Service() {
     @Inject
     lateinit var evidenceRepo: EvidenceRepository
 
+    @Inject
+    lateinit var onlineStateRepo: com.gateway.android.data.repo.OnlineStateRepository
+
     private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
     private var isRunning = false
 
     override fun onCreate() {
         super.onCreate()
+        isRunningFlag = true
         createNotificationChannel()
 
         val wakeLock = (getSystemService(POWER_SERVICE) as PowerManager)
@@ -58,6 +62,7 @@ class ForegroundService : Service() {
 
     override fun onDestroy() {
         isRunning = false
+        isRunningFlag = false
         scope.cancel()
         super.onDestroy()
     }
@@ -65,6 +70,10 @@ class ForegroundService : Service() {
     private fun startHeartbeatLoop() {
         scope.launch {
             while (isRunning) {
+                if (!onlineStateRepo.isMerchantOnline()) {
+                    delay(HEARTBEAT_INTERVAL_MS)
+                    continue
+                }
                 val deviceId = authRepo.getDeviceId()
                 if (deviceId != null && authRepo.isLoggedIn()) {
                     deviceRepo.sendHeartbeat(deviceId, NotificationListenerService.isRunning)
@@ -77,6 +86,10 @@ class ForegroundService : Service() {
     private fun startHealthReportLoop() {
         scope.launch {
             while (isRunning) {
+                if (!onlineStateRepo.isMerchantOnline()) {
+                    delay(HEALTH_REPORT_INTERVAL_MS)
+                    continue
+                }
                 val deviceId = authRepo.getDeviceId()
                 if (deviceId != null && authRepo.isLoggedIn()) {
                     deviceRepo.sendHealthReport(deviceId)
@@ -89,7 +102,9 @@ class ForegroundService : Service() {
     private fun startEvidenceRetryLoop() {
         scope.launch {
             while (isRunning) {
-                evidenceRepo.retryFailed()
+                if (onlineStateRepo.isMerchantOnline()) {
+                    evidenceRepo.retryFailed()
+                }
                 delay(RETRY_INTERVAL_MS)
             }
         }
@@ -121,6 +136,10 @@ class ForegroundService : Service() {
     }
 
     companion object {
+        @Volatile
+        var isRunningFlag: Boolean = false
+        val isRunning: Boolean get() = isRunningFlag
+
         private const val CHANNEL_ID = "gateway_foreground_service"
         private const val NOTIFICATION_ID = 1
         private const val HEARTBEAT_INTERVAL_MS = 60_000L

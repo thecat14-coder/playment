@@ -7,6 +7,8 @@ import android.os.PowerManager
 import android.provider.Settings
 import com.gateway.android.data.api.GatewayApi
 import com.gateway.android.domain.model.HealthStatus
+import com.gateway.android.service.ForegroundService
+import com.gateway.android.service.NotificationListenerService
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -32,8 +34,7 @@ class DeviceRepository @Inject constructor(
                 authRepo.saveDeviceAuth(
                     deviceId = data.device_id,
                     deviceSecret = data.device_secret,
-                    merchantId = authRepo.getMerchantId() ?: "",
-                    token = data.token,
+                    deviceToken = data.token,
                 )
                 Result.success(data.device_id)
             } else {
@@ -67,8 +68,7 @@ class DeviceRepository @Inject constructor(
                 "app_version" to getAppVersion(),
             ))
             if (response.isSuccessful) {
-                val score = response.body()?.get("data") as? Map<*, *>
-                val healthScore = (score?.get("health_score") as? Double)?.toInt() ?: 0
+                val healthScore = response.body()?.data?.health_score ?: 0
                 Result.success(healthScore)
             } else {
                 Result.failure(Exception("Health report failed: ${response.code()}"))
@@ -78,8 +78,18 @@ class DeviceRepository @Inject constructor(
         }
     }
 
+    suspend fun updateDeviceStatus(isOnline: Boolean): Result<Unit> {
+        val deviceId = authRepo.getDeviceId() ?: return Result.failure(Exception("No device"))
+        return try {
+            val response = api.updateDeviceStatus(deviceId, mapOf("is_online" to isOnline))
+            if (response.isSuccessful) Result.success(Unit)
+            else Result.failure(Exception("Status update failed: ${response.code()}"))
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
     fun getDeviceHealth(): HealthStatus {
-        val pm = context.packageManager
         val powerManager = context.getSystemService(Context.POWER_SERVICE) as PowerManager
 
         return HealthStatus(
@@ -88,8 +98,8 @@ class DeviceRepository @Inject constructor(
                 "enabled_notification_listeners",
             )?.contains(context.packageName) == true,
             batteryOptimizationDisabled = powerManager.isIgnoringBatteryOptimizations(context.packageName),
-            foregroundServiceRunning = false,
-            listenerRunning = false,
+            foregroundServiceRunning = ForegroundService.isRunning,
+            listenerRunning = NotificationListenerService.isRunning,
             internetConnected = isNetworkConnected(),
             batteryLevel = getBatteryLevel(),
         )

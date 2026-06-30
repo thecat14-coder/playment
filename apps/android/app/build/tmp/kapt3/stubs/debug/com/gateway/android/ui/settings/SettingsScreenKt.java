@@ -1,18 +1,23 @@
 package com.gateway.android.ui.settings;
 
 import androidx.compose.foundation.layout.*;
+import androidx.compose.material.icons.Icons;
 import androidx.compose.material3.*;
 import androidx.compose.runtime.*;
 import androidx.compose.ui.Modifier;
 import androidx.navigation.NavController;
-import com.gateway.android.BuildConfig;
 
-@kotlin.Metadata(mv = {1, 9, 0}, k = 2, xi = 48, d1 = {"\u0000\u000e\n\u0000\n\u0002\u0010\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\u001a\u0010\u0010\u0000\u001a\u00020\u00012\u0006\u0010\u0002\u001a\u00020\u0003H\u0007\u00a8\u0006\u0004"}, d2 = {"SettingsScreen", "", "navController", "Landroidx/navigation/NavController;", "app_debug"})
+@kotlin.Metadata(mv = {1, 9, 0}, k = 2, xi = 48, d1 = {"\u0000(\n\u0000\n\u0002\u0010\u0002\n\u0000\n\u0002\u0010\u000e\n\u0000\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0000\u001a&\u0010\u0000\u001a\u00020\u00012\u0006\u0010\u0002\u001a\u00020\u00032\u0006\u0010\u0004\u001a\u00020\u00052\f\u0010\u0006\u001a\b\u0012\u0004\u0012\u00020\u00010\u0007H\u0003\u001a\u001a\u0010\b\u001a\u00020\u00012\u0006\u0010\t\u001a\u00020\n2\b\b\u0002\u0010\u000b\u001a\u00020\fH\u0007\u00a8\u0006\r"}, d2 = {"SettingsNavRow", "", "title", "", "icon", "Landroidx/compose/ui/graphics/vector/ImageVector;", "onClick", "Lkotlin/Function0;", "SettingsScreen", "navController", "Landroidx/navigation/NavController;", "viewModel", "Lcom/gateway/android/ui/settings/SettingsViewModel;", "app_debug"})
 public final class SettingsScreenKt {
     
     @kotlin.OptIn(markerClass = {androidx.compose.material3.ExperimentalMaterial3Api.class})
     @androidx.compose.runtime.Composable()
     public static final void SettingsScreen(@org.jetbrains.annotations.NotNull()
-    androidx.navigation.NavController navController) {
+    androidx.navigation.NavController navController, @org.jetbrains.annotations.NotNull()
+    com.gateway.android.ui.settings.SettingsViewModel viewModel) {
+    }
+    
+    @androidx.compose.runtime.Composable()
+    private static final void SettingsNavRow(java.lang.String title, androidx.compose.ui.graphics.vector.ImageVector icon, kotlin.jvm.functions.Function0<kotlin.Unit> onClick) {
     }
 }

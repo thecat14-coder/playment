@@ -13,6 +13,8 @@ import com.gateway.android.data.db.EvidenceDao;
 import com.gateway.android.data.repo.AuthRepository;
 import com.gateway.android.data.repo.DeviceRepository;
 import com.gateway.android.data.repo.EvidenceRepository;
+import com.gateway.android.data.repo.MerchantRepository;
+import com.gateway.android.data.repo.OnlineStateRepository;
 import com.gateway.android.di.AppModule_ProvideDatabaseFactory;
 import com.gateway.android.di.AppModule_ProvideEvidenceDaoFactory;
 import com.gateway.android.di.AppModule_ProvideGatewayApiFactory;
@@ -25,12 +27,27 @@ import com.gateway.android.service.ForegroundService_MembersInjector;
 import com.gateway.android.service.NotificationListenerService;
 import com.gateway.android.service.NotificationListenerService_MembersInjector;
 import com.gateway.android.ui.MainActivity;
+import com.gateway.android.ui.MainActivity_MembersInjector;
+import com.gateway.android.ui.developer.DeveloperViewModel;
+import com.gateway.android.ui.developer.DeveloperViewModel_HiltModules_KeyModule_ProvideFactory;
 import com.gateway.android.ui.feed.PaymentFeedViewModel;
 import com.gateway.android.ui.feed.PaymentFeedViewModel_HiltModules_KeyModule_ProvideFactory;
+import com.gateway.android.ui.health.DeviceHealthViewModel;
+import com.gateway.android.ui.health.DeviceHealthViewModel_HiltModules_KeyModule_ProvideFactory;
 import com.gateway.android.ui.home.HomeViewModel;
 import com.gateway.android.ui.home.HomeViewModel_HiltModules_KeyModule_ProvideFactory;
-import com.gateway.android.ui.login.LoginViewModel;
-import com.gateway.android.ui.login.LoginViewModel_HiltModules_KeyModule_ProvideFactory;
+import com.gateway.android.ui.links.CreateLinkViewModel;
+import com.gateway.android.ui.links.CreateLinkViewModel_HiltModules_KeyModule_ProvideFactory;
+import com.gateway.android.ui.links.PaymentLinksViewModel;
+import com.gateway.android.ui.links.PaymentLinksViewModel_HiltModules_KeyModule_ProvideFactory;
+import com.gateway.android.ui.login.AuthViewModel;
+import com.gateway.android.ui.login.AuthViewModel_HiltModules_KeyModule_ProvideFactory;
+import com.gateway.android.ui.payments.PaymentsViewModel;
+import com.gateway.android.ui.payments.PaymentsViewModel_HiltModules_KeyModule_ProvideFactory;
+import com.gateway.android.ui.settings.SettingsViewModel;
+import com.gateway.android.ui.settings.SettingsViewModel_HiltModules_KeyModule_ProvideFactory;
+import com.gateway.android.ui.setup.UpiSetupViewModel;
+import com.gateway.android.ui.setup.UpiSetupViewModel_HiltModules_KeyModule_ProvideFactory;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import dagger.hilt.android.ActivityRetainedLifecycle;
 import dagger.hilt.android.ViewModelLifecycle;
@@ -382,6 +399,7 @@ public final class DaggerGatewayApp_HiltComponents_SingletonC {
 
     @Override
     public void injectMainActivity(MainActivity mainActivity) {
+      injectMainActivity2(mainActivity);
     }
 
     @Override
@@ -391,7 +409,7 @@ public final class DaggerGatewayApp_HiltComponents_SingletonC {
 
     @Override
     public Set<String> getViewModelKeys() {
-      return SetBuilder.<String>newSetBuilder(3).add(HomeViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(LoginViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(PaymentFeedViewModel_HiltModules_KeyModule_ProvideFactory.provide()).build();
+      return SetBuilder.<String>newSetBuilder(10).add(AuthViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(CreateLinkViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(DeveloperViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(DeviceHealthViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(HomeViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(PaymentFeedViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(PaymentLinksViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(PaymentsViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(SettingsViewModel_HiltModules_KeyModule_ProvideFactory.provide()).add(UpiSetupViewModel_HiltModules_KeyModule_ProvideFactory.provide()).build();
     }
 
     @Override
@@ -408,6 +426,12 @@ public final class DaggerGatewayApp_HiltComponents_SingletonC {
     public ViewComponentBuilder viewComponentBuilder() {
       return new ViewCBuilder(singletonCImpl, activityRetainedCImpl, activityCImpl);
     }
+
+    @CanIgnoreReturnValue
+    private MainActivity injectMainActivity2(MainActivity instance) {
+      MainActivity_MembersInjector.injectAuthRepository(instance, singletonCImpl.authRepositoryProvider.get());
+      return instance;
+    }
   }
 
   private static final class ViewModelCImpl extends GatewayApp_HiltComponents.ViewModelC {
@@ -417,11 +441,25 @@ public final class DaggerGatewayApp_HiltComponents_SingletonC {
 
     private final ViewModelCImpl viewModelCImpl = this;
 
+    private Provider<AuthViewModel> authViewModelProvider;
+
+    private Provider<CreateLinkViewModel> createLinkViewModelProvider;
+
+    private Provider<DeveloperViewModel> developerViewModelProvider;
+
+    private Provider<DeviceHealthViewModel> deviceHealthViewModelProvider;
+
     private Provider<HomeViewModel> homeViewModelProvider;
 
-    private Provider<LoginViewModel> loginViewModelProvider;
-
     private Provider<PaymentFeedViewModel> paymentFeedViewModelProvider;
+
+    private Provider<PaymentLinksViewModel> paymentLinksViewModelProvider;
+
+    private Provider<PaymentsViewModel> paymentsViewModelProvider;
+
+    private Provider<SettingsViewModel> settingsViewModelProvider;
+
+    private Provider<UpiSetupViewModel> upiSetupViewModelProvider;
 
     private ViewModelCImpl(SingletonCImpl singletonCImpl,
         ActivityRetainedCImpl activityRetainedCImpl, SavedStateHandle savedStateHandleParam,
@@ -436,14 +474,21 @@ public final class DaggerGatewayApp_HiltComponents_SingletonC {
     @SuppressWarnings("unchecked")
     private void initialize(final SavedStateHandle savedStateHandleParam,
         final ViewModelLifecycle viewModelLifecycleParam) {
-      this.homeViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 0);
-      this.loginViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 1);
-      this.paymentFeedViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 2);
+      this.authViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 0);
+      this.createLinkViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 1);
+      this.developerViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 2);
+      this.deviceHealthViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 3);
+      this.homeViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 4);
+      this.paymentFeedViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 5);
+      this.paymentLinksViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 6);
+      this.paymentsViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 7);
+      this.settingsViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 8);
+      this.upiSetupViewModelProvider = new SwitchingProvider<>(singletonCImpl, activityRetainedCImpl, viewModelCImpl, 9);
     }
 
     @Override
     public Map<String, javax.inject.Provider<ViewModel>> getHiltViewModelMap() {
-      return MapBuilder.<String, javax.inject.Provider<ViewModel>>newMapBuilder(3).put("com.gateway.android.ui.home.HomeViewModel", ((Provider) homeViewModelProvider)).put("com.gateway.android.ui.login.LoginViewModel", ((Provider) loginViewModelProvider)).put("com.gateway.android.ui.feed.PaymentFeedViewModel", ((Provider) paymentFeedViewModelProvider)).build();
+      return MapBuilder.<String, javax.inject.Provider<ViewModel>>newMapBuilder(10).put("com.gateway.android.ui.login.AuthViewModel", ((Provider) authViewModelProvider)).put("com.gateway.android.ui.links.CreateLinkViewModel", ((Provider) createLinkViewModelProvider)).put("com.gateway.android.ui.developer.DeveloperViewModel", ((Provider) developerViewModelProvider)).put("com.gateway.android.ui.health.DeviceHealthViewModel", ((Provider) deviceHealthViewModelProvider)).put("com.gateway.android.ui.home.HomeViewModel", ((Provider) homeViewModelProvider)).put("com.gateway.android.ui.feed.PaymentFeedViewModel", ((Provider) paymentFeedViewModelProvider)).put("com.gateway.android.ui.links.PaymentLinksViewModel", ((Provider) paymentLinksViewModelProvider)).put("com.gateway.android.ui.payments.PaymentsViewModel", ((Provider) paymentsViewModelProvider)).put("com.gateway.android.ui.settings.SettingsViewModel", ((Provider) settingsViewModelProvider)).put("com.gateway.android.ui.setup.UpiSetupViewModel", ((Provider) upiSetupViewModelProvider)).build();
     }
 
     @Override
@@ -472,14 +517,35 @@ public final class DaggerGatewayApp_HiltComponents_SingletonC {
       @Override
       public T get() {
         switch (id) {
-          case 0: // com.gateway.android.ui.home.HomeViewModel 
-          return (T) new HomeViewModel(singletonCImpl.authRepositoryProvider.get(), singletonCImpl.deviceRepositoryProvider.get());
+          case 0: // com.gateway.android.ui.login.AuthViewModel 
+          return (T) new AuthViewModel(singletonCImpl.authRepositoryProvider.get(), singletonCImpl.deviceRepositoryProvider.get());
 
-          case 1: // com.gateway.android.ui.login.LoginViewModel 
-          return (T) new LoginViewModel(singletonCImpl.authRepositoryProvider.get(), singletonCImpl.deviceRepositoryProvider.get());
+          case 1: // com.gateway.android.ui.links.CreateLinkViewModel 
+          return (T) new CreateLinkViewModel(singletonCImpl.merchantRepositoryProvider.get());
 
-          case 2: // com.gateway.android.ui.feed.PaymentFeedViewModel 
+          case 2: // com.gateway.android.ui.developer.DeveloperViewModel 
+          return (T) new DeveloperViewModel(singletonCImpl.merchantRepositoryProvider.get());
+
+          case 3: // com.gateway.android.ui.health.DeviceHealthViewModel 
+          return (T) new DeviceHealthViewModel(singletonCImpl.deviceRepositoryProvider.get(), singletonCImpl.merchantRepositoryProvider.get(), singletonCImpl.onlineStateRepositoryProvider.get());
+
+          case 4: // com.gateway.android.ui.home.HomeViewModel 
+          return (T) new HomeViewModel(singletonCImpl.authRepositoryProvider.get(), singletonCImpl.merchantRepositoryProvider.get(), singletonCImpl.deviceRepositoryProvider.get(), singletonCImpl.onlineStateRepositoryProvider.get(), ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule));
+
+          case 5: // com.gateway.android.ui.feed.PaymentFeedViewModel 
           return (T) new PaymentFeedViewModel(singletonCImpl.evidenceRepositoryProvider.get());
+
+          case 6: // com.gateway.android.ui.links.PaymentLinksViewModel 
+          return (T) new PaymentLinksViewModel(singletonCImpl.merchantRepositoryProvider.get());
+
+          case 7: // com.gateway.android.ui.payments.PaymentsViewModel 
+          return (T) new PaymentsViewModel(singletonCImpl.merchantRepositoryProvider.get());
+
+          case 8: // com.gateway.android.ui.settings.SettingsViewModel 
+          return (T) new SettingsViewModel(singletonCImpl.authRepositoryProvider.get(), singletonCImpl.merchantRepositoryProvider.get(), singletonCImpl.onlineStateRepositoryProvider.get(), ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule));
+
+          case 9: // com.gateway.android.ui.setup.UpiSetupViewModel 
+          return (T) new UpiSetupViewModel(singletonCImpl.merchantRepositoryProvider.get());
 
           default: throw new AssertionError(id);
         }
@@ -571,6 +637,7 @@ public final class DaggerGatewayApp_HiltComponents_SingletonC {
       ForegroundService_MembersInjector.injectDeviceRepo(instance, singletonCImpl.deviceRepositoryProvider.get());
       ForegroundService_MembersInjector.injectAuthRepo(instance, singletonCImpl.authRepositoryProvider.get());
       ForegroundService_MembersInjector.injectEvidenceRepo(instance, singletonCImpl.evidenceRepositoryProvider.get());
+      ForegroundService_MembersInjector.injectOnlineStateRepo(instance, singletonCImpl.onlineStateRepositoryProvider.get());
       return instance;
     }
 
@@ -597,6 +664,10 @@ public final class DaggerGatewayApp_HiltComponents_SingletonC {
 
     private Provider<DeviceRepository> deviceRepositoryProvider;
 
+    private Provider<MerchantRepository> merchantRepositoryProvider;
+
+    private Provider<OnlineStateRepository> onlineStateRepositoryProvider;
+
     private Provider<AppDatabase> provideDatabaseProvider;
 
     private Provider<EvidenceDao> provideEvidenceDaoProvider;
@@ -618,10 +689,12 @@ public final class DaggerGatewayApp_HiltComponents_SingletonC {
       this.provideGatewayApiProvider = DoubleCheck.provider(new SwitchingProvider<GatewayApi>(singletonCImpl, 1));
       this.authRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<AuthRepository>(singletonCImpl, 0));
       this.deviceRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<DeviceRepository>(singletonCImpl, 4));
-      this.provideDatabaseProvider = DoubleCheck.provider(new SwitchingProvider<AppDatabase>(singletonCImpl, 7));
-      this.provideEvidenceDaoProvider = DoubleCheck.provider(new SwitchingProvider<EvidenceDao>(singletonCImpl, 6));
-      this.provideNotificationParserProvider = DoubleCheck.provider(new SwitchingProvider<NotificationParser>(singletonCImpl, 8));
-      this.evidenceRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<EvidenceRepository>(singletonCImpl, 5));
+      this.merchantRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<MerchantRepository>(singletonCImpl, 5));
+      this.onlineStateRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<OnlineStateRepository>(singletonCImpl, 6));
+      this.provideDatabaseProvider = DoubleCheck.provider(new SwitchingProvider<AppDatabase>(singletonCImpl, 9));
+      this.provideEvidenceDaoProvider = DoubleCheck.provider(new SwitchingProvider<EvidenceDao>(singletonCImpl, 8));
+      this.provideNotificationParserProvider = DoubleCheck.provider(new SwitchingProvider<NotificationParser>(singletonCImpl, 10));
+      this.evidenceRepositoryProvider = DoubleCheck.provider(new SwitchingProvider<EvidenceRepository>(singletonCImpl, 7));
     }
 
     @Override
@@ -672,16 +745,22 @@ public final class DaggerGatewayApp_HiltComponents_SingletonC {
           case 4: // com.gateway.android.data.repo.DeviceRepository 
           return (T) new DeviceRepository(singletonCImpl.provideGatewayApiProvider.get(), singletonCImpl.authRepositoryProvider.get(), ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule));
 
-          case 5: // com.gateway.android.data.repo.EvidenceRepository 
+          case 5: // com.gateway.android.data.repo.MerchantRepository 
+          return (T) new MerchantRepository(singletonCImpl.provideGatewayApiProvider.get(), singletonCImpl.authRepositoryProvider.get());
+
+          case 6: // com.gateway.android.data.repo.OnlineStateRepository 
+          return (T) new OnlineStateRepository(singletonCImpl.provideGatewayApiProvider.get(), singletonCImpl.authRepositoryProvider.get(), singletonCImpl.provideSharedPreferencesProvider.get());
+
+          case 7: // com.gateway.android.data.repo.EvidenceRepository 
           return (T) new EvidenceRepository(singletonCImpl.provideGatewayApiProvider.get(), singletonCImpl.provideEvidenceDaoProvider.get(), singletonCImpl.provideNotificationParserProvider.get(), singletonCImpl.authRepositoryProvider.get());
 
-          case 6: // com.gateway.android.data.db.EvidenceDao 
+          case 8: // com.gateway.android.data.db.EvidenceDao 
           return (T) AppModule_ProvideEvidenceDaoFactory.provideEvidenceDao(singletonCImpl.provideDatabaseProvider.get());
 
-          case 7: // com.gateway.android.data.db.AppDatabase 
+          case 9: // com.gateway.android.data.db.AppDatabase 
           return (T) AppModule_ProvideDatabaseFactory.provideDatabase(ApplicationContextModule_ProvideContextFactory.provideContext(singletonCImpl.applicationContextModule));
 
-          case 8: // com.gateway.android.domain.parser.NotificationParser 
+          case 10: // com.gateway.android.domain.parser.NotificationParser 
           return (T) AppModule_ProvideNotificationParserFactory.provideNotificationParser();
 
           default: throw new AssertionError(id);

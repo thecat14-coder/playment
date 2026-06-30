@@ -17,8 +17,21 @@ class NotificationParser @Inject constructor() {
         val bank: String?,
     )
 
+    fun isLikelyPaymentNotification(packageName: String, title: String?, body: String): Boolean {
+        if (PAYMENT_PACKAGES.contains(packageName)) return true
+        val text = "$title $body".lowercase()
+        return text.contains("credited") ||
+            text.contains("received") ||
+            text.contains("debited") ||
+            text.contains("upi") ||
+            text.contains("paid") ||
+            text.contains("₹") ||
+            text.contains("rs.") ||
+            text.contains("inr")
+    }
+
     fun parse(title: String?, body: String, packageName: String): ParsedNotification? {
-        val fullText = "$title $body"
+        val fullText = "${title.orEmpty()} $body"
         val amount = extractAmount(fullText) ?: return null
 
         val upiApp = resolveAppName(packageName)
@@ -40,10 +53,10 @@ class NotificationParser @Inject constructor() {
 
     private fun extractAmount(text: String): Int? {
         val patterns = listOf(
-            Pattern.compile("(?:Rs\\.?|INR|₹)\\s?(\\d{1,10}(?:,\\d{3})*(?:\\.\\d{2})?)"),
-            Pattern.compile("credited by\\s?(?:Rs\\.?|INR|₹)?\\s?(\\d+)"),
-            Pattern.compile("amount\\s?(?:of\\s?)?(?:Rs\\.?|INR|₹)?\\s?(\\d+)"),
-            Pattern.compile("(\\d+)\\s?(?:rupees|rs)"),
+            Pattern.compile("(?:Rs\\.?|INR|₹)\\s?(\\d{1,10}(?:,\\d{3})*(?:\\.\\d{1,2})?)", Pattern.CASE_INSENSITIVE),
+            Pattern.compile("(?:credited|received|paid)\\s+(?:with\\s+)?(?:Rs\\.?|INR|₹)?\\s?(\\d+(?:\\.\\d{1,2})?)", Pattern.CASE_INSENSITIVE),
+            Pattern.compile("(?:amount|amt)\\s*(?:of\\s+)?(?:Rs\\.?|INR|₹)?\\s?(\\d+(?:\\.\\d{1,2})?)", Pattern.CASE_INSENSITIVE),
+            Pattern.compile("(\\d+(?:\\.\\d{1,2})?)\\s?(?:rupees|rs\\.?)", Pattern.CASE_INSENSITIVE),
         )
 
         for (pattern in patterns) {
@@ -51,6 +64,7 @@ class NotificationParser @Inject constructor() {
             if (matcher.find()) {
                 val raw = matcher.group(1)!!.replace(",", "")
                 val amountFloat = raw.toDoubleOrNull() ?: continue
+                if (amountFloat <= 0) continue
                 return (amountFloat * 100).toInt()
             }
         }
@@ -59,14 +73,13 @@ class NotificationParser @Inject constructor() {
 
     private fun extractUtr(text: String): String? {
         val patterns = listOf(
-            Pattern.compile("UTR(?:\\s?(?:No|Number|#|:))?\\s?[:\\.]?\\s?(\\d{12})"),
-            Pattern.compile("(\\d{12})(?:\\s?(?:is|has been))"),
-            Pattern.compile("(\\d{12})"),
+            Pattern.compile("(?:UTR|UPI\\s*Ref(?:erence)?|Ref(?:erence)?\\s*(?:No|Number|#)?)\\s*[:.]?\\s*(\\d{12})", Pattern.CASE_INSENSITIVE),
+            Pattern.compile("\\b(\\d{12})\\b"),
         )
 
         for (pattern in patterns) {
             val matcher = pattern.matcher(text)
-            if (matcher.find()) {
+            while (matcher.find()) {
                 val candidate = matcher.group(1)
                 if (candidate?.length == 12 && candidate.all { it.isDigit() }) {
                     return candidate
@@ -84,9 +97,8 @@ class NotificationParser @Inject constructor() {
 
     private fun extractSenderName(text: String): String? {
         val patterns = listOf(
-            Pattern.compile("from\\s+([A-Za-z\\s]+?)(?:\\s+(?:has|sent|paid|transferred|credited))"),
-            Pattern.compile("received from\\s+([A-Za-z\\s]+?)(?:\\s+(?:has|sent|via|using))"),
-            Pattern.compile("by\\s+([A-Za-z\\s]+?)(?:\\s+(?:has|sent|to|for))"),
+            Pattern.compile("(?:from|by)\\s+([A-Za-z][A-Za-z0-9\\s.'-]{1,40}?)(?:\\s+(?:on|via|using|has|sent|for|to|\\d))", Pattern.CASE_INSENSITIVE),
+            Pattern.compile("received from\\s+([A-Za-z][A-Za-z0-9\\s.'-]{1,40}?)(?:\\s+(?:on|via|using))", Pattern.CASE_INSENSITIVE),
         )
 
         for (pattern in patterns) {
@@ -103,6 +115,7 @@ class NotificationParser @Inject constructor() {
             "HDFC Bank", "ICICI Bank", "SBI", "State Bank of India",
             "Axis Bank", "Kotak", "Yes Bank", "PNB", "Bank of Baroda",
             "Canara Bank", "Union Bank", "IDFC Bank", "IndusInd Bank",
+            "Federal Bank", "Bandhan Bank",
         )
 
         for (bank in bankPatterns) {
@@ -120,7 +133,28 @@ class NotificationParser @Inject constructor() {
             "com.dreamplug.androidapp" -> "CRED"
             "in.amazon.mShop.android.shopping" -> "Amazon Pay"
             "com.whatsapp" -> "WhatsApp"
+            "com.axis.mobile" -> "Axis Bank"
+            "com.hdfcbank.hdfcpay" -> "HDFC Bank"
+            "com.csam.icici.bank.imobile" -> "ICICI Bank"
+            "com.sbi.lotusintouch" -> "SBI"
             else -> packageName
         }
+    }
+
+    companion object {
+        private val PAYMENT_PACKAGES = setOf(
+            "com.phonepe.app",
+            "com.google.android.apps.nbu.paisa.user",
+            "net.one97.paytm",
+            "in.org.npci.upiapp",
+            "com.dreamplug.androidapp",
+            "in.amazon.mShop.android.shopping",
+            "com.whatsapp",
+            "com.axis.mobile",
+            "com.hdfcbank.hdfcpay",
+            "com.csam.icici.bank.imobile",
+            "com.sbi.lotusintouch",
+            "com.google.android.apps.messaging",
+        )
     }
 }

@@ -8,28 +8,36 @@ export function usePaymentStatus(paymentId: string, initialStatus: string) {
   const wsRef = useRef<WebSocket | null>(null);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const startPolling = useCallback(() => {
-    if (pollRef.current) return;
-    pollRef.current = setInterval(async () => {
-      try {
-        const res = await fetch(getPollingUrl(paymentId));
-        if (res.ok) {
-          const json = await res.json();
-          const newStatus = json.data.status;
-          if (newStatus !== 'pending') {
-            setStatus(newStatus);
-            if (pollRef.current) {
-              clearInterval(pollRef.current);
-              pollRef.current = null;
-            }
+  const pollOnce = useCallback(async () => {
+    try {
+      const res = await fetch(getPollingUrl(paymentId), { cache: 'no-store' });
+      if (res.ok) {
+        const json = await res.json();
+        const newStatus = json.data.status;
+        if (newStatus !== 'pending') {
+          setStatus(newStatus);
+          if (pollRef.current) {
+            clearInterval(pollRef.current);
+            pollRef.current = null;
           }
         }
-      } catch {}
-    }, 5000);
+      }
+    } catch {
+      // retry on next interval
+    }
   }, [paymentId]);
+
+  const startPolling = useCallback(() => {
+    if (pollRef.current) return;
+    pollOnce();
+    pollRef.current = setInterval(pollOnce, 3000);
+  }, [pollOnce]);
 
   useEffect(() => {
     if (initialStatus !== 'pending') return;
+
+    // Always poll — WebSocket is unreliable on some hosts (e.g. Railway)
+    startPolling();
 
     const wsUrl = getWebSocketUrl(paymentId);
 
@@ -41,18 +49,18 @@ export function usePaymentStatus(paymentId: string, initialStatus: string) {
         const data = JSON.parse(event.data);
         if (data.type === 'status_update') {
           setStatus(data.status);
+          if (pollRef.current) {
+            clearInterval(pollRef.current);
+            pollRef.current = null;
+          }
         }
-      };
-
-      ws.onclose = () => {
-        startPolling();
       };
 
       ws.onerror = () => {
         ws.close();
       };
     } catch {
-      startPolling();
+      // polling already running
     }
 
     return () => {
