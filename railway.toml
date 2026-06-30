@@ -16,6 +16,4 @@ watchPatterns = [
 [deploy]
 startCommand = "pnpm --filter @gateway/backend start"
 preDeployCommand = ["pnpm --filter @gateway/backend db:push"]
-healthcheckPath = "/health"
-healthcheckTimeout = 300
 restartPolicyType = "ON_FAILURE"

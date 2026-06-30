@@ -26,7 +26,6 @@ import { AppError } from './utils/errors.js';
 
 async function main() {
   const env = getEnv();
-  const container = createContainer(env);
 
   const app = Fastify({
     logger: {
@@ -36,6 +35,11 @@ async function main() {
         : undefined,
     },
   });
+
+  // Liveness — register before Redis/DB-dependent plugins so probes respond quickly
+  app.get('/health', async () => ({ status: 'ok' }));
+
+  const container = createContainer(env);
 
   await app.register(cors, {
     origin: [env.DASHBOARD_URL, env.CHECKOUT_URL, env.ADMIN_URL],
@@ -141,9 +145,25 @@ async function main() {
     adminJwtMiddleware,
   );
 
-  app.get('/health', async () => ({ status: 'ok' }));
+  const shutdown = async () => {
+    app.log.info('Shutting down...');
+    container.workers.expiryWorker.stop();
+    await container.workers.webhookWorker.close();
+    await container.workers.matchingWorker.close();
+    await container.workers.healthWorker.close();
+    await container.workers.notificationLogWorker.close();
+    await app.close();
+    await container.redis.quit();
+    await container.pgClient.end();
+    process.exit(0);
+  };
 
-  // Start V1 Workers
+  process.on('SIGTERM', shutdown);
+  process.on('SIGINT', shutdown);
+
+  await app.listen({ port: env.PORT, host: '0.0.0.0' });
+  app.log.info(`Server running at http://localhost:${env.PORT}`);
+
   container.workers.expiryWorker.start();
   app.log.info('Expiry worker started');
 
@@ -169,25 +189,6 @@ async function main() {
   container.workers.notificationLogWorker.on('completed', (job) => {
     app.log.debug({ jobId: job.id }, 'Notification log written');
   });
-
-  const shutdown = async () => {
-    app.log.info('Shutting down...');
-    container.workers.expiryWorker.stop();
-    await container.workers.webhookWorker.close();
-    await container.workers.matchingWorker.close();
-    await container.workers.healthWorker.close();
-    await container.workers.notificationLogWorker.close();
-    await app.close();
-    await container.redis.quit();
-    await container.pgClient.end();
-    process.exit(0);
-  };
-
-  process.on('SIGTERM', shutdown);
-  process.on('SIGINT', shutdown);
-
-  await app.listen({ port: env.PORT, host: '0.0.0.0' });
-  app.log.info(`Server running at http://localhost:${env.PORT}`);
 }
 
 main().catch((err) => {
