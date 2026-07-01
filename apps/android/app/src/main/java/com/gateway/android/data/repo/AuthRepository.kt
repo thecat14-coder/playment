@@ -2,6 +2,7 @@ package com.gateway.android.data.repo
 
 import android.content.SharedPreferences
 import com.gateway.android.data.api.AuthInterceptor
+import com.gateway.android.data.api.DeviceTokenAuthenticator
 import com.gateway.android.data.api.GatewayApi
 import com.gateway.android.data.api.MerchantInfo
 import javax.inject.Inject

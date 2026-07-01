@@ -1,6 +1,21 @@
 'use client';
 
-export function QrDisplay({ qrUrl, merchantName }: { qrUrl: string; merchantName: string }) {
+import { useEffect } from 'react';
+import { logUpiUri } from '@/lib/upi-uri';
+
+export function QrDisplay({
+  qrUrl,
+  merchantName,
+  upiIntent,
+}: {
+  qrUrl: string;
+  merchantName: string;
+  upiIntent: string;
+}) {
+  useEffect(() => {
+    logUpiUri('QR encodes', upiIntent);
+  }, [upiIntent]);
+
   return (
     <div className="flex flex-col items-center">
       <p className="text-sm text-gray-500 mb-3">Scan with any UPI app</p>

@@ -22,7 +22,7 @@ export const TEST_PAYMENT = {
   customer_name: 'Rahul',
   customer_email: 'rahul@example.com',
   customer_phone: '+919876543210',
-  upi_intent: 'upi://pay?pa=teststore@upi&pn=Test+Store&am=499.00&cu=INR&tr=ORD-001&tn=ORD-001',
+  upi_intent: 'upi://pay?pa=teststore@upi&pn=Test%20Store&am=499.00&cu=INR&tr=01KWFPAY4Q4G97PC9ZAWSG5VKF&tn=ORD-001',
   qr_url: 'data:image/png;base64,mockqr',
   payment_link: 'http://localhost:3002/01JTEST00000000PAYMENT01',
   metadata: null,

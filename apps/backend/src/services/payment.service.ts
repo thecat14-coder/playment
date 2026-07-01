@@ -39,11 +39,14 @@ export class PaymentService implements PaymentDetector {
     const paymentId = generateId();
 
     const upiIntent = this.upiService.buildIntent({
-      upiId: merchant.upi_id,
+      upiId,
       merchantName: merchant.name,
       amount: input.amount,
-      orderId: input.order_id,
+      transactionRef: paymentId,
+      note: input.order_id,
     });
+
+    console.log(`[upi] intent generated paymentId=${paymentId} uri=${upiIntent}`);
 
     const qrDataUrl = await this.qrService.generateDataUrl(upiIntent);
 

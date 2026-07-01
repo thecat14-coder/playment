@@ -60,7 +60,7 @@ export function CheckoutClient({ data }: { data: CheckoutData }) {
         </div>
 
         <div className="px-6 pb-6 space-y-5">
-          <QrDisplay qrUrl={data.qr_url} merchantName={data.merchant?.name ?? 'Merchant'} />
+          <QrDisplay qrUrl={data.qr_url} merchantName={data.merchant?.name ?? 'Merchant'} upiIntent={data.upi_intent} />
           <UpiButtons upiIntent={data.upi_intent} upiId={data.merchant?.upi_id ?? ''} />
         </div>
 

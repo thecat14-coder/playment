@@ -9,24 +9,21 @@ describe('UpiService', () => {
       upiId: 'merchant@upi',
       merchantName: 'Test Store',
       amount: 49900,
-      orderId: 'ORD-001',
+      transactionRef: '01KWFPAY4Q4G97PC9ZAWSG5VKF',
+      note: 'ORD-001',
     });
 
-    expect(intent).toContain('upi://pay?');
-    expect(intent).toContain('pa=merchant%40upi');
-    expect(intent).toContain('pn=Test+Store');
-    expect(intent).toContain('am=499.00');
-    expect(intent).toContain('cu=INR');
-    expect(intent).toContain('tr=ORD-001');
-    expect(intent).toContain('tn=ORD-001');
+    expect(intent).toBe(
+      'upi://pay?pa=merchant@upi&pn=Test%20Store&am=499.00&cu=INR&tr=01KWFPAY4Q4G97PC9ZAWSG5VKF&tn=ORD-001',
+    );
   });
 
-  it('should convert paise to rupees correctly', () => {
+  it('should convert paise to rupees with two decimals', () => {
     const intent = upiService.buildIntent({
       upiId: 'test@upi',
       merchantName: 'Shop',
       amount: 100,
-      orderId: 'X',
+      transactionRef: 'PAY123',
     });
     expect(intent).toContain('am=1.00');
   });
@@ -36,7 +33,7 @@ describe('UpiService', () => {
       upiId: 'test@upi',
       merchantName: 'Shop',
       amount: 12345,
-      orderId: 'X',
+      transactionRef: 'PAY123',
     });
     expect(intent).toContain('am=123.45');
   });
@@ -46,8 +43,30 @@ describe('UpiService', () => {
       upiId: 'test@upi',
       merchantName: 'My Store & Co',
       amount: 100,
-      orderId: 'X',
+      transactionRef: 'PAY123',
     });
-    expect(intent).toContain('pn=My+Store+%26+Co');
+    expect(intent).toContain('pn=My%20Store%20%26%20Co');
+  });
+
+  it('should keep @ literal in pa and trim whitespace', () => {
+    const intent = upiService.buildIntent({
+      upiId: '  merchant@ybl  ',
+      merchantName: 'Shop',
+      amount: 1000,
+      transactionRef: 'PAY123',
+    });
+    expect(intent).toContain('pa=merchant@ybl');
+  });
+
+  it('should sanitize transaction reference to allowed characters', () => {
+    const intent = upiService.buildIntent({
+      upiId: 'test@upi',
+      merchantName: 'Shop',
+      amount: 100,
+      transactionRef: 'order_123 test!',
+      note: 'order_123 test!',
+    });
+    expect(intent).toContain('tr=order123test');
+    expect(intent).toContain('tn=order_123%20test!');
   });
 });

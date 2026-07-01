@@ -61,12 +61,15 @@ describe('PaymentService', () => {
 
       expect(paymentRepo.create).toHaveBeenCalledOnce();
       expect(eventRepo.create).toHaveBeenCalledOnce();
-      expect(upiService.buildIntent).toHaveBeenCalledWith({
-        upiId: TEST_MERCHANT.upi_id,
-        merchantName: TEST_MERCHANT.name,
-        amount: 49900,
-        orderId: 'ORD-001',
-      });
+      expect(upiService.buildIntent).toHaveBeenCalledWith(
+        expect.objectContaining({
+          upiId: TEST_MERCHANT.upi_id,
+          merchantName: TEST_MERCHANT.name,
+          amount: 49900,
+          note: 'ORD-001',
+        }),
+      );
+      expect(upiService.buildIntent.mock.calls[0][0].transactionRef).toMatch(/^[0-9A-Z]{26}$/);
     });
 
     it('should throw NotFoundError if merchant does not exist', async () => {
