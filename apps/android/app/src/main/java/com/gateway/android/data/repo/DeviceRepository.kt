@@ -35,6 +35,7 @@ class DeviceRepository @Inject constructor(
                     deviceId = data.device_id,
                     deviceSecret = data.device_secret,
                     deviceToken = data.token,
+                    deviceRefreshToken = data.refresh_token,
                 )
                 Result.success(data.device_id)
             } else {

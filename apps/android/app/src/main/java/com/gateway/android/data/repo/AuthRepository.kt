@@ -48,12 +48,17 @@ class AuthRepository @Inject constructor(
             .apply()
     }
 
-    fun saveDeviceAuth(deviceId: String, deviceSecret: String, deviceToken: String) {
+    fun saveDeviceAuth(deviceId: String, deviceSecret: String, deviceToken: String, deviceRefreshToken: String? = null) {
         preferences.edit()
             .putString(KEY_DEVICE_ID, deviceId)
             .putString(KEY_DEVICE_SECRET, deviceSecret)
             .putString(AuthInterceptor.KEY_DEVICE_TOKEN, deviceToken)
             .apply()
+        if (!deviceRefreshToken.isNullOrBlank()) {
+            preferences.edit()
+                .putString(DeviceTokenAuthenticator.KEY_DEVICE_REFRESH_TOKEN, deviceRefreshToken)
+                .apply()
+        }
     }
 
     fun updateMerchantUpi(upiId: String) {

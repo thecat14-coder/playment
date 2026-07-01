@@ -7,6 +7,7 @@ import androidx.security.crypto.MasterKey
 import com.gateway.android.BuildConfig
 import com.gateway.android.data.api.GatewayApi
 import com.gateway.android.data.api.AuthInterceptor
+import com.gateway.android.data.api.DeviceTokenAuthenticator
 import com.gateway.android.data.db.AppDatabase
 import com.gateway.android.data.db.EvidenceDao
 import com.gateway.android.data.repo.AuthRepository
@@ -52,6 +53,7 @@ object AppModule {
         }
         return OkHttpClient.Builder()
             .addInterceptor(AuthInterceptor(preferences))
+            .authenticator(DeviceTokenAuthenticator(preferences))
             .addInterceptor(logging)
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)

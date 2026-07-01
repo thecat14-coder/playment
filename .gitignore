@@ -7,3 +7,10 @@ dist/
 *.log
 coverage/
 .DS_Store
+
+# Android
+apps/android/.gradle/
+apps/android/app/build/
+apps/android/local.properties
+*.apk
+*.aab

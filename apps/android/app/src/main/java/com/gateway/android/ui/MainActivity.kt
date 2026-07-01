@@ -13,6 +13,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.gateway.android.data.repo.AuthRepository
+import com.gateway.android.data.repo.DeviceRepository
 import com.gateway.android.ui.developer.DeveloperScreen
 import com.gateway.android.ui.health.DeviceHealthScreen
 import com.gateway.android.ui.home.HomeScreen
@@ -24,6 +25,10 @@ import com.gateway.android.ui.setup.UpiSetupScreen
 import com.gateway.android.ui.settings.SettingsScreen
 import com.gateway.android.ui.theme.GatewayTheme
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -32,8 +37,19 @@ class MainActivity : ComponentActivity() {
     @Inject
     lateinit var authRepository: AuthRepository
 
+    @Inject
+    lateinit var deviceRepository: DeviceRepository
+
+    private val activityScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (authRepository.isLoggedIn()) {
+            activityScope.launch(Dispatchers.IO) {
+                deviceRepository.registerDevice()
+            }
+        }
 
         val startDestination = when {
             !authRepository.isLoggedIn() -> "login"

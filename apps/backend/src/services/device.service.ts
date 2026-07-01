@@ -5,7 +5,7 @@ import type { DeviceRepository } from '../repositories/device.repository.js';
 import type { HealthRepository } from '../repositories/health.repository.js';
 import type { AuthService } from './auth.service.js';
 import { generateId } from '../utils/ulid.js';
-import { NotFoundError, ConflictError } from '../utils/errors.js';
+import { NotFoundError, ConflictError, UnauthorizedError } from '../utils/errors.js';
 
 export class DeviceService {
   constructor(
@@ -22,11 +22,13 @@ export class DeviceService {
         throw new ConflictError('Device already registered to another merchant');
       }
       const deviceJwt = this.authService.generateDeviceToken(existing.id, existing.merchant_id);
+      const deviceRefreshJwt = this.authService.generateDeviceRefreshToken(existing.id, existing.merchant_id);
       return {
         device_id: existing.id,
         device_secret: existing.device_secret,
         status: existing.status,
         token: deviceJwt,
+        refresh_token: deviceRefreshJwt,
       };
     }
 
@@ -48,12 +50,38 @@ export class DeviceService {
     });
 
     const deviceJwt = this.authService.generateDeviceToken(deviceId, merchantId);
+    const deviceRefreshJwt = this.authService.generateDeviceRefreshToken(deviceId, merchantId);
 
     return {
       device_id: device.id,
       device_secret: deviceSecret,
       status: device.status,
       token: deviceJwt,
+      refresh_token: deviceRefreshJwt,
+    };
+  }
+
+  async refreshToken(refreshToken: string) {
+    let payload: { sub: string; device_id: string };
+    try {
+      payload = this.authService.verifyDeviceRefreshToken(refreshToken);
+    } catch {
+      throw new UnauthorizedError('Invalid or expired device refresh token');
+    }
+    const device = await this.deviceRepo.findById(payload.device_id);
+    if (!device) {
+      throw new NotFoundError('Device not found');
+    }
+    if (device.status === 'suspended' || device.status === 'deregistered') {
+      throw new ConflictError('Device is suspended or deregistered');
+    }
+    if (device.merchant_id !== payload.sub) {
+      throw new ConflictError('Device does not belong to this merchant');
+    }
+
+    return {
+      token: this.authService.generateDeviceToken(device.id, device.merchant_id),
+      refresh_token: this.authService.generateDeviceRefreshToken(device.id, device.merchant_id),
     };
   }
 

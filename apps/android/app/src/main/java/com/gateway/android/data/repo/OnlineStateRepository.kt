@@ -11,6 +11,7 @@ import javax.inject.Singleton
 class OnlineStateRepository @Inject constructor(
     private val api: GatewayApi,
     private val authRepo: AuthRepository,
+    private val deviceRepo: DeviceRepository,
     private val preferences: SharedPreferences,
 ) {
     private val _isOnline = MutableStateFlow(preferences.getBoolean(KEY_IS_ONLINE, false))
@@ -23,6 +24,13 @@ class OnlineStateRepository @Inject constructor(
             ?: return Result.failure(Exception("Device not registered"))
 
         return try {
+            if (authRepo.getDeviceToken() == null) {
+                val refresh = deviceRepo.registerDevice()
+                if (refresh.isFailure) {
+                    return Result.failure(refresh.exceptionOrNull() ?: Exception("Device token refresh failed"))
+                }
+            }
+
             val response = api.updateDeviceStatus(deviceId, mapOf("is_online" to online))
             if (response.isSuccessful) {
                 preferences.edit().putBoolean(KEY_IS_ONLINE, online).apply()

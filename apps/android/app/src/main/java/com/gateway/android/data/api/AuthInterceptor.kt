@@ -32,8 +32,7 @@ class AuthInterceptor(private val preferences: SharedPreferences) : Interceptor 
         val deviceToken = preferences.getString(KEY_DEVICE_TOKEN, null)
         val merchantToken = preferences.getString(KEY_MERCHANT_TOKEN, null)
 
-        val deviceOnly = path.contains("/v1/evidence") ||
-            DEVICE_AUTH_PATTERN.containsMatchIn(path)
+        val deviceOnly = path.contains("/v1/evidence") || isDeviceAuthPath(path)
 
         return if (deviceOnly) deviceToken else merchantToken
     }
@@ -41,6 +40,9 @@ class AuthInterceptor(private val preferences: SharedPreferences) : Interceptor 
     companion object {
         const val KEY_DEVICE_TOKEN = "device_token"
         const val KEY_MERCHANT_TOKEN = "merchant_token"
+
+        fun isDeviceAuthPath(path: String): Boolean =
+            DEVICE_AUTH_PATTERN.containsMatchIn(path)
 
         private val DEVICE_AUTH_PATTERN = Regex(
             """/v1/devices/[^/]+/(heartbeat|health|status)(/|$)""",

@@ -221,6 +221,7 @@ data class DeviceRegisterData(
     val device_secret: String,
     val status: String,
     val token: String,
+    val refresh_token: String? = null,
 )
 
 data class EvidenceUploadResponse(val data: EvidenceData)

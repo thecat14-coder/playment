@@ -19,6 +19,16 @@ export function registerDeviceRoutes(
   deviceAuthMiddleware: (request: any, reply: any) => Promise<void>,
   jwtMiddleware: (request: any, reply: any) => Promise<void>,
 ) {
+  app.post('/v1/devices/refresh', async (request, reply) => {
+    const body = request.body as { refresh_token?: string };
+    if (!body?.refresh_token) {
+      throw new ValidationError('refresh_token is required');
+    }
+
+    const result = await deviceService.refreshToken(body.refresh_token);
+    return reply.send({ data: result });
+  });
+
   app.post('/v1/devices/register', { preHandler: jwtMiddleware }, async (request, reply) => {
     const parsed = deviceRegisterSchema.safeParse(request.body);
     if (!parsed.success) {
